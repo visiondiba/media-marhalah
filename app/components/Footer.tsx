@@ -29,13 +29,13 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr]">
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
-              <div className="h-9 w-9"><img src="/icon-192.webp" alt="Logo" /> </div>
+              <div className="h-9 w-9"><img src="/logo.png" alt="Logo" /> </div>
               
               <div className="flex items-center gap-1.5">
                 
-                <span className="text-base font-bold tracking-widest uppercase text-primary-soft">
-                  Impervious Generation
-                </span>
+                <h1 className="text-2xl font-black lowercase text-secondary-soft">
+                  impervious <span className="text-[#C9A84C]">play.</span>
+                </h1>
                 
               </div>
             </Link>

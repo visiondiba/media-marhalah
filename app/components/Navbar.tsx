@@ -27,31 +27,13 @@ export function Navbar() {
     <>
       <nav className={`fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between px-3 transition sm:px-8 lg:px-10 ${scrolled || !isHome ? "border-b border-primary/25 bg-[#080603]/95 backdrop-blur-xl" : "bg-transparent"}`}>
         <div className="flex flex-1 items-center justify-start gap-3">
-          <Link to="/" className="flex items-center gap-2 rounded-full border border-primary/30 bg-primary/15 px-2 py-1.5 shadow-[0_0_20px_rgba(201,168,76,0.08)]">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full border border-primary/40 bg-[#0A0804]">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-[18px] w-[18px] text-primary-strong">
-                <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="url(#paint0_linear)" />
-                <path d="M2 17L12 22L22 17" stroke="url(#paint1_linear)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M2 12L12 17L22 12" stroke="url(#paint2_linear)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <defs>
-                  <linearGradient id="paint0_linear" x1="12" y1="2" x2="12" y2="12" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#E8C96A" />
-                    <stop offset="1" stopColor="#A07830" />
-                  </linearGradient>
-                  <linearGradient id="paint1_linear" x1="12" y1="17" x2="12" y2="22" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#E8C96A" />
-                    <stop offset="1" stopColor="#A07830" />
-                  </linearGradient>
-                  <linearGradient id="paint2_linear" x1="12" y1="12" x2="12" y2="17" gradientUnits="userSpaceOnUse">
-                    <stop stopColor="#E8C96A" />
-                    <stop offset="1" stopColor="#A07830" />
-                  </linearGradient>
-                </defs>
-              </svg>
+          <Link to="/" className="flex items-center gap-2 rounded-full border border-primary/30 bg-primary/15 px-2.5 py-1.5 shadow-[0_0_20px_rgba(201,168,76,0.08)]">
+            <div className="flex h-8 w-8 items-center justify-center">
+              <img src="logo.png" alt="Logo" />
             </div>
-            <span className="hidden text-[11px] font-semibold uppercase tracking-[0.2em] text-primary-soft sm:inline">
-              MEDIA PANGGUNG GEMBIRA
-            </span>
+            <h1 className="hidden text-large font-black lowercase  text-primary-soft sm:inline">
+              impervious <span className="text-[#C9A84C]">play.</span>
+            </h1>
           </Link>
 
           <div className="hidden items-center gap-1 rounded-full border border-primary/20 bg-surface/70 p-1 sm:flex">

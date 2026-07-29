@@ -6,10 +6,10 @@ export interface LicenseInfo {
 }
 
 const VALID_KEYS: Record<string, string> = {
-  "MARHALAH-2024": "VIP Golden Ticket Pass",
-  "PG-VIP-8888": "Executive Producer Pass",
-  "GOLDEN-SPECTACLE": "All-Access Lifetime Pass",
-  "DEMO-PASS": "Standard Access Ticket",
+  "MARHALAH-2024": "VIP Pass",
+  "PG-VIP-8888": "Producer Pass",
+  "GOLDEN-SPECTACLE": "Lifetime Pass",
+  "DEMO-PASS": "Standard Pass",
 };
 
 const STORAGE_KEY = "media_marhalah_license";
