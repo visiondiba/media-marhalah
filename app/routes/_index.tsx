@@ -7,8 +7,9 @@ import { getFeaturedPerformances, getPerformancesByCategory } from "~/data/perfo
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Impermedia — Panggung Gembira" },
-    { name: "description", content: "Platform streaming eksklusif Panggung Gembira" },
+    { title: "Impervious Play — Impervious Streaming Platform" },
+    { name: "description", content: "Official Exclusive Streaming of Panggung Gembira" },
+    { icon: "/favicon.ico" }
   ];
 };
 
@@ -19,12 +20,12 @@ export default function Index() {
   const artPerformances = getPerformancesByCategory("Seni Rupa");
   
   return (
-    <div className="app-container">
+    <div className="min-h-screen bg-[#0A0804]">
       <Navbar />
       
       <HeroSection featuredItems={featuredItems} />
       
-      <main className="main-content">
+      <main className="mx-auto max-w-7xl pb-24 sm:pb-10">
         <ContentRow 
           title="Seni Musik" 
           performances={musicPerformances} 

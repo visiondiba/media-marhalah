@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  font-family: "Lato", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --color-primary: #C9A84C;
+  --color-primary-strong: #E8C96A;
+  --color-primary-soft: #F5DFA0;
+  --color-text-primary: #F5E8C0;
+  --color-text-secondary: #D9C08F;
+  --color-text-muted: #B8A57A;
+  --color-surface: #12100A;
+  --color-surface-strong: #16130A;
+  --color-background: #060402;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply min-h-screen overflow-x-hidden bg-[#060402] text-[#F5E8C0] antialiased;
+  background-image: radial-gradient(circle at top left, rgba(201, 168, 76, 0.14), transparent 28%), linear-gradient(135deg, #060402 0%, #0a0804 55%, #070501 100%);
+  font-family: var(--font-sans);
+}
+
+button {
+  @apply cursor-pointer;
+}
+
+img {
+  @apply block max-w-full;
+}
+
+a {
+  @apply text-inherit no-underline;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+}
+
+@theme {
+  --font-sans: "Lato", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --color-primary: #C9A84C;
+  --color-primary-strong: #E8C96A;
+  --color-primary-soft: #F5DFA0;
+  --color-text-primary: #F5E8C0;
+  --color-text-secondary: #D9C08F;
+  --color-text-muted: #B8A57A;
+  --color-surface: #12100A;
+  --color-surface-strong: #16130A;
+  --color-background: #060402;
+}

@@ -23,33 +23,37 @@ export function ContentRow({ title, performances, seeAllLink }: ContentRowProps)
   if (performances.length === 0) return null;
 
   return (
-    <div className="content-row">
-      <div className="row-header">
-        <h2 className="row-title">{title}</h2>
+    <section className="mx-auto mb-8 max-w-7xl px-3 sm:px-6 lg:px-8">
+      <div className="mb-3 flex items-start justify-between gap-3 sm:items-center">
+        <h2 className="text-sm font-semibold uppercase tracking-[0.18em] text-primary-soft sm:text-base">{title}</h2>
         {seeAllLink && (
-          <Link to={seeAllLink} className="row-see-all">Lihat Semua</Link>
+          <Link to={seeAllLink} className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-strong transition hover:bg-primary/20">
+            Lihat Semua
+          </Link>
         )}
       </div>
-      
-      <div className="scroll-row-wrapper">
-        <button className="scroll-arrow scroll-arrow-left" onClick={() => scroll("left")} aria-label="Scroll left">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+
+      <div className="relative">
+        <button className="absolute left-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-primary/30 bg-[#0A0804]/95 text-primary-strong shadow-lg backdrop-blur sm:flex" onClick={() => scroll("left")} aria-label="Scroll left">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
             <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
         </button>
-        
-        <div className="scroll-row" ref={rowRef}>
-          {performances.map((perf, index) => (
-            <ContentCard key={perf.id} performance={perf} index={index} />
-          ))}
+
+        <div className="overflow-x-auto pb-2 pl-0 pr-0 sm:pl-8 sm:pr-8" ref={rowRef}>
+          <div className="flex flex-nowrap justify-start gap-3">
+            {performances.map((perf, index) => (
+              <ContentCard key={perf.id} performance={perf} index={index} variant="row" />
+            ))}
+          </div>
         </div>
-        
-        <button className="scroll-arrow scroll-arrow-right" onClick={() => scroll("right")} aria-label="Scroll right">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+
+        <button className="absolute right-0 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-primary/30 bg-[#0A0804]/95 text-primary-strong shadow-lg backdrop-blur sm:flex" onClick={() => scroll("right")} aria-label="Scroll right">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
             <polyline points="9 18 15 12 9 6"></polyline>
           </svg>
         </button>
       </div>
-    </div>
+    </section>
   );
 }
