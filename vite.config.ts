@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import { vitePlugin as remix } from "@remix-run/dev";
 import path from "path";
+import { netlifyPlugin } from "@netlify/remix-adapter/plugin";
 
 export default defineConfig({
   plugins: [
@@ -11,6 +12,7 @@ export default defineConfig({
         v3_throwAbortReason: true,
       },
     }),
+    netlifyPlugin()
   ],
   resolve: {
     alias: {
