@@ -22,7 +22,7 @@ export function HeroSection({ featuredItems }: HeroSectionProps) {
   if (!featuredItems || featuredItems.length === 0) return null;
 
   const current = featuredItems[currentIndex];
-  const displayedDuration = useYoutubeDuration(current.videoUrl, current.duration);
+  const displayedDuration = useYoutubeDuration(current.videoUrl);
 
   return (
     <section className="relative isolate min-h-[84vh] overflow-hidden bg-[var(--color-background)] sm:min-h-[88vh] lg:min-h-[86vh]">
@@ -53,15 +53,7 @@ export function HeroSection({ featuredItems }: HeroSectionProps) {
               {current.category}
             </span>
             <span className="text-text-muted">•</span>
-            <span>{current.year}</span>
-            <span className="text-text-muted">•</span>
             <span>{displayedDuration}</span>
-            {current.views && (
-              <>
-                <span className="text-text-muted">•</span>
-                <span>{current.views.toLocaleString()} Penonton</span>
-              </>
-            )}
           </div>
 
           <p className="mx-auto mb-6 max-w-lg text-sm leading-7 text-text-secondary sm:mx-0 sm:mb-8 sm:text-base lg:text-lg">

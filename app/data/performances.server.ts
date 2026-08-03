@@ -4,6 +4,31 @@ import type { Category, Performance } from "./performances";
 
 const dataPath = path.resolve(process.cwd(), "data", "performances.json");
 
+function getYouTubeVideoId(videoUrl: string): string | null {
+    const match = videoUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/);
+    return match ? match[1] : null;
+}
+
+function getYouTubeThumbnail(videoUrl: string): string | null {
+    const videoId = getYouTubeVideoId(videoUrl);
+    return videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : null;
+}
+
+function normalizePerformance(performance: Performance): Performance {
+    const normalized = { ...performance };
+
+    if (normalized.videoType === "youtube" && normalized.videoUrl) {
+        const thumbnail = getYouTubeThumbnail(normalized.videoUrl);
+        if (thumbnail) {
+            normalized.thumbnail = thumbnail;
+        }
+    }
+
+    return normalized;
+}
+
+const defaultThumbnail = "https://images.unsplash.com/photo-1492691527719-0d8b575c4db0?auto=format&fit=crop&w=900&q=80";
+
 function readPerformancesJson(): Performance[] {
     const raw = fs.readFileSync(dataPath, "utf-8");
     return JSON.parse(raw) as Performance[];
@@ -14,38 +39,39 @@ function writePerformancesJson(items: Performance[]) {
 }
 
 export function getPerformances(): Promise<Performance[]> {
-    return Promise.resolve(readPerformancesJson());
+    return Promise.resolve(readPerformancesJson().map((performance) => normalizePerformance(performance)));
 }
 
 export function getPerformanceById(id: string): Promise<Performance | null> {
     const all = readPerformancesJson();
     const match = all.find((item) => item.id === id);
-    return Promise.resolve(match ?? null);
+    return Promise.resolve(match ? normalizePerformance(match) : null);
 }
 
 export function getPerformancesByCategory(category: Category | "Semua"): Promise<Performance[]> {
-    const all = readPerformancesJson();
+    const all = readPerformancesJson().map((performance) => normalizePerformance(performance));
     if (category === "Semua") return Promise.resolve(all);
     return Promise.resolve(all.filter((item) => item.category === category));
 }
 
 export function savePerformances(performances: Performance[]): Promise<Performance[]> {
-    writePerformancesJson(performances);
-    return Promise.resolve(performances);
+    writePerformancesJson(performances.map((performance) => normalizePerformance(performance)));
+    return Promise.resolve(performances.map((performance) => normalizePerformance(performance)));
 }
 
 export function upsertPerformance(performance: Performance): Promise<Performance> {
+    const normalizedPerformance = normalizePerformance(performance);
     const all = readPerformancesJson();
     const existingIndex = all.findIndex((item) => item.id === performance.id);
 
     if (existingIndex >= 0) {
-        all[existingIndex] = performance;
+        all[existingIndex] = normalizedPerformance;
     } else {
-        all.push(performance);
+        all.push(normalizedPerformance);
     }
 
     writePerformancesJson(all);
-    return Promise.resolve(performance);
+    return Promise.resolve(normalizedPerformance);
 }
 
 export function deletePerformance(id: string): Promise<void> {
@@ -56,19 +82,16 @@ export function deletePerformance(id: string): Promise<void> {
 }
 
 export function getFeaturedPerformances(): Promise<Performance[]> {
-    const all = readPerformancesJson();
+    const all = readPerformancesJson().map((performance) => normalizePerformance(performance));
     const categories: Category[] = ["Non-Performance", "Seni Musik", "Seni Tari", "Seni Rupa", "Seni Bahasa"];
     const featuredByCategory = new Map<Category, Performance>();
 
     for (const performance of all) {
-        const isFeatured = performance.featured || (performance.trendingScore ?? 0) > 90;
+        const isFeatured = performance.featured ?? false;
         if (!isFeatured) continue;
 
         const current = featuredByCategory.get(performance.category);
-        const currentScore = current?.trendingScore ?? 0;
-        const candidateScore = performance.trendingScore ?? 0;
-
-        if (!current || candidateScore > currentScore) {
+        if (!current) {
             featuredByCategory.set(performance.category, performance);
         }
     }
@@ -81,7 +104,7 @@ export function getFeaturedPerformances(): Promise<Performance[]> {
 }
 
 export function getRelatedPerformances(category: Category, excludeId: string): Promise<Performance[]> {
-    const all = readPerformancesJson();
+    const all = readPerformancesJson().map((performance) => normalizePerformance(performance));
     const sameCategory = all.filter((performance) => performance.category === category && performance.id !== excludeId);
     const otherPerformances = all.filter((performance) => performance.category !== category && performance.id !== excludeId);
     return Promise.resolve([...sameCategory, ...otherPerformances].slice(0, 4));

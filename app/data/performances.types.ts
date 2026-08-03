@@ -5,13 +5,8 @@ export interface Performance {
     title: string;
     category: Category;
     description: string;
-    artist: string;
-    thumbnail: string;
-    duration: string;
-    year: number;
+    thumbnail?: string;
     featured?: boolean;
     videoUrl?: string;
     videoType?: "video/mp4" | "youtube";
-    views?: number;
-    trendingScore?: number;
 }

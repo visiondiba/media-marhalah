@@ -10,14 +10,14 @@ interface ContentCardProps {
 
 export function ContentCard({ performance, index, variant = "row" }: ContentCardProps) {
   const isGrid = variant === "grid";
-  const displayedDuration = useYoutubeDuration(performance.videoUrl, performance.duration);
+  const displayedDuration = useYoutubeDuration(performance.videoUrl);
 
   return (
     <Link
       to={`/watch/${performance.id}`}
       className={`group overflow-hidden rounded-[16px] border border-primary/20 bg-[rgba(18,16,10,0.92)] shadow-[0_8px_24px_rgba(0,0,0,0.3)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_12px_30px_rgba(201,168,76,0.16)] ${isGrid
-          ? "w-full shrink-0 snap-start"
-          : "mx-auto w-[86vw] max-w-[260px] shrink-0 snap-start sm:mx-0 sm:w-[320px] sm:max-w-none lg:w-[300px]"
+        ? "w-full shrink-0 snap-start"
+        : "mx-auto w-[86vw] max-w-[260px] shrink-0 snap-start sm:mx-0 sm:w-[320px] sm:max-w-none lg:w-[300px]"
         }`}
     >
       <div className="relative aspect-video overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(201,168,76,0.22),_transparent_60%),linear-gradient(135deg,_#1a140d_0%,_#0a0804_100%)]">
@@ -56,8 +56,6 @@ export function ContentCard({ performance, index, variant = "row" }: ContentCard
         </h3>
         <div className="flex items-center gap-2 text-[10px] text-text-muted sm:text-[11px]">
           <span className="font-medium text-primary-strong/80">{performance.category}</span>
-          <span>•</span>
-          <span className="line-clamp-1">{performance.artist}</span>
         </div>
       </div>
     </Link>

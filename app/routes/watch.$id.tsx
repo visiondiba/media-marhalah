@@ -191,7 +191,7 @@ export default function Watch() {
     };
   }, [performance?.videoUrl, isYouTubeUrl]);
 
-  const displayedDuration = isYouTubeUrl ? youtubeDuration ?? performance.duration : performance.duration;
+  const displayedDuration = youtubeDuration ?? "--:--";
 
   return (
     <div className="min-h-screen bg-[#0A0804] pt-16 text-[#F5E8C0]">
@@ -265,8 +265,6 @@ export default function Watch() {
                 {performance.category}
               </span>
               <span>•</span>
-              <span>{performance.year}</span>
-              <span>•</span>
               <span>{displayedDuration}</span>
             </div>
 
@@ -329,7 +327,6 @@ export default function Watch() {
                   <div className="min-w-0">
                     <div className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#A07830] sm:text-[10px]">{item.category}</div>
                     <h4 className="mt-0.5 line-clamp-2 text-xs font-semibold uppercase tracking-[0.02em] text-[#F5E8C0] sm:mt-1 sm:text-sm">{item.title}</h4>
-                    <div className="mt-0.5 text-[10px] text-[#8E7546] sm:mt-1 sm:text-xs">{item.artist}</div>
                   </div>
                 </Link>
               )) : (

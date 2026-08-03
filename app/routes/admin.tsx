@@ -29,13 +29,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const title = String(form.get("title") || "");
     const category = String(form.get("category") || "Non-Performance") as Performance["category"];
     const description = String(form.get("description") || "");
-    const artist = String(form.get("artist") || "");
-    const thumbnail = String(form.get("thumbnail") || "");
-    const duration = String(form.get("duration") || "");
-    const year = Number(form.get("year") || 2024);
     const featured = form.get("featured") === "on";
-    const views = Number(form.get("views") || 0);
-    const trendingScore = Number(form.get("trendingScore") || 0);
     const videoUrl = String(form.get("videoUrl") || "");
     const videoType = String(form.get("videoType") || "youtube") as Performance["videoType"];
 
@@ -44,13 +38,7 @@ export async function action({ request }: ActionFunctionArgs) {
         title,
         category,
         description,
-        artist,
-        thumbnail,
-        duration,
-        year,
         featured,
-        views,
-        trendingScore,
         videoUrl,
         videoType,
     };
@@ -78,7 +66,7 @@ export default function Admin() {
                                 <div className="flex flex-wrap items-center justify-between gap-3">
                                     <div>
                                         <h2 className="text-xl font-semibold uppercase tracking-[0.08em] text-primary-soft">{performance.title}</h2>
-                                        <p className="text-sm text-text-muted">{performance.category} • {performance.year} • {performance.duration}</p>
+                                        <p className="text-sm text-text-muted">{performance.category}</p>
                                     </div>
                                     <Form method="post">
                                         <input type="hidden" name="id" value={performance.id} />
@@ -88,12 +76,12 @@ export default function Admin() {
                                 </div>
                                 <div className="mt-4 grid gap-4 sm:grid-cols-2">
                                     <div>
-                                        <div className="mb-1 text-[10px] uppercase tracking-[0.2em] text-primary/70">URL Video</div>
+                                        <div className="mb-1 text-[10px] uppercase tracking-[0.2em] text-primary/70">Video URL</div>
                                         <div className="break-all text-sm text-text-secondary">{performance.videoUrl}</div>
                                     </div>
                                     <div>
                                         <div className="mb-1 text-[10px] uppercase tracking-[0.2em] text-primary/70">Thumbnail</div>
-                                        <img src={performance.thumbnail} alt={performance.title} className="h-24 w-full rounded-2xl object-cover" />
+                                        <img src={performance.thumbnail ?? "https://images.unsplash.com/photo-1492691527719-0d8b575c4db0?auto=format&fit=crop&w=900&q=80"} alt={performance.title} className="h-24 w-full rounded-2xl object-cover" />
                                     </div>
                                 </div>
                             </div>
@@ -123,39 +111,12 @@ export default function Admin() {
                                 </select>
                             </div>
                             <div>
-                                <label className="text-[10px] uppercase tracking-[0.2em] text-primary/70">Artis</label>
-                                <input name="artist" className="mt-2 w-full rounded-2xl border border-primary/20 bg-[#0A0804] px-4 py-3 text-sm text-text-primary outline-none" />
-                            </div>
-                            <div>
-                                <label className="text-[10px] uppercase tracking-[0.2em] text-primary/70">Durasi</label>
-                                <input name="duration" required className="mt-2 w-full rounded-2xl border border-primary/20 bg-[#0A0804] px-4 py-3 text-sm text-text-primary outline-none" placeholder="e.g. 14m" />
+                                <label className="text-[10px] uppercase tracking-[0.2em] text-primary/70">Deskripsi</label>
+                                <textarea name="description" required className="mt-2 w-full rounded-2xl border border-primary/20 bg-[#0A0804] px-4 py-3 text-sm text-text-primary outline-none" rows={4} />
                             </div>
                             <div>
                                 <label className="text-[10px] uppercase tracking-[0.2em] text-primary/70">Video URL</label>
                                 <input name="videoUrl" required className="mt-2 w-full rounded-2xl border border-primary/20 bg-[#0A0804] px-4 py-3 text-sm text-text-primary outline-none" />
-                            </div>
-                            <div>
-                                <label className="text-[10px] uppercase tracking-[0.2em] text-primary/70">Thumbnail</label>
-                                <input name="thumbnail" required className="mt-2 w-full rounded-2xl border border-primary/20 bg-[#0A0804] px-4 py-3 text-sm text-text-primary outline-none" placeholder="https://..." />
-                            </div>
-                            <div>
-                                <label className="text-[10px] uppercase tracking-[0.2em] text-primary/70">Tahun</label>
-                                <input name="year" type="number" required className="mt-2 w-full rounded-2xl border border-primary/20 bg-[#0A0804] px-4 py-3 text-sm text-text-primary outline-none" />
-                            </div>
-                            <div>
-                                <label className="text-[10px] uppercase tracking-[0.2em] text-primary/70">Views</label>
-                                <input name="views" type="number" className="mt-2 w-full rounded-2xl border border-primary/20 bg-[#0A0804] px-4 py-3 text-sm text-text-primary outline-none" />
-                            </div>
-                            <div>
-                                <label className="text-[10px] uppercase tracking-[0.2em] text-primary/70">Trending Score</label>
-                                <input name="trendingScore" type="number" className="mt-2 w-full rounded-2xl border border-primary/20 bg-[#0A0804] px-4 py-3 text-sm text-text-primary outline-none" />
-                            </div>
-                            <div>
-                                <label className="text-[10px] uppercase tracking-[0.2em] text-primary/70">Tipe Video</label>
-                                <select name="videoType" defaultValue="youtube" className="mt-2 w-full rounded-2xl border border-primary/20 bg-[#0A0804] px-4 py-3 text-sm text-text-primary outline-none">
-                                    <option value="youtube">youtube</option>
-                                    <option value="video/mp4">video/mp4</option>
-                                </select>
                             </div>
                             <div className="flex items-center gap-3">
                                 <input id="featured" name="featured" type="checkbox" className="h-4 w-4 rounded border-primary text-primary focus:ring-primary" />
