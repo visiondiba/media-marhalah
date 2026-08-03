@@ -2,26 +2,36 @@
    DESIGN TOKENS
 ======================== */
 :root {
+  --color-primary: #C9A84C;
+  --color-primary-strong: #E8C96A;
+  --color-primary-soft: #F5DFA0;
+  --color-text-primary: #F5E8C0;
+  --color-text-secondary: #D9C08F;
+  --color-text-muted: #B8A57A;
+  --color-surface: #12100A;
+  --color-surface-strong: #16130A;
+  --color-background: #060402;
+
   --gold-100: #FFF8E7;
-  --gold-200: #F5DFA0;
-  --gold-300: #E8C96A;
-  --gold-400: #C9A84C;
+  --gold-200: var(--color-primary-soft);
+  --gold-300: var(--color-primary-strong);
+  --gold-400: var(--color-primary);
   --gold-500: #A07830;
   --gold-600: #7A5520;
 
   --dark-100: #2A2214;
   --dark-200: #1E1A0F;
-  --dark-300: #16130A;
-  --dark-400: #100D06;
-  --dark-500: #0A0804;
+  --dark-300: var(--color-surface-strong);
+  --dark-400: var(--color-surface);
+  --dark-500: var(--color-background);
 
-  --surface-1: rgba(26, 22, 13, 0.95);
-  --surface-2: rgba(35, 30, 18, 0.90);
-  --surface-3: rgba(45, 38, 22, 0.85);
+  --surface-1: rgba(18, 16, 10, 0.95);
+  --surface-2: rgba(22, 19, 10, 0.90);
+  --surface-3: rgba(30, 26, 14, 0.85);
 
-  --text-primary: #F5E8C0;
-  --text-secondary: #B8A57A;
-  --text-muted: #7A6845;
+  --text-primary: var(--color-text-primary);
+  --text-secondary: var(--color-text-secondary);
+  --text-muted: var(--color-text-muted);
 
   --border-gold: rgba(201, 168, 76, 0.25);
   --border-gold-hover: rgba(201, 168, 76, 0.6);

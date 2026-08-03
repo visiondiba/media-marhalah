@@ -1,3 +1,5 @@
+import { supabase } from "./supabase";
+
 export interface LicenseInfo {
   code: string;
   planName: string;
@@ -5,35 +7,84 @@ export interface LicenseInfo {
   isValid: boolean;
 }
 
-const VALID_KEYS: Record<string, string> = {
-  "MARHALAH-2024": "VIP Pass",
-  "PG-VIP-8888": "Producer Pass",
-  "GOLDEN-SPECTACLE": "Lifetime Pass",
-  "DEMO-PASS": "Standard Pass",
-};
-
 const STORAGE_KEY = "media_marhalah_license";
 
-export function validateLicenseKey(code: string): { success: boolean; planName?: string; error?: string } {
+// Check license against Supabase
+export async function validateLicenseKeySupabase(
+  code: string,
+  userId: string
+): Promise<{ success: boolean; planName?: string; error?: string }> {
   const cleanCode = code.trim().toUpperCase();
   if (!cleanCode) {
     return { success: false, error: "Kode lisensi tidak boleh kosong." };
   }
 
-  if (VALID_KEYS[cleanCode]) {
-    const licenseInfo: LicenseInfo = {
-      code: cleanCode,
-      planName: VALID_KEYS[cleanCode],
-      activatedAt: new Date().toISOString(),
-      isValid: true,
-    };
-    saveLicense(licenseInfo);
-    return { success: true, planName: VALID_KEYS[cleanCode] };
-  }
+  try {
+    // 1. Cek apakah kode ada di database
+    const { data: license, error } = await supabase
+      .from("licenses")
+      .select("*")
+      .eq("code", cleanCode)
+      .single();
 
-  return { success: false, error: "Kode lisensi tidak valid atau telah kadaluarsa." };
+    if (error || !license) {
+      // Fallback ke local keys jika diperlukan untuk testing (bisa dihapus nanti)
+      if (cleanCode === "MARHALAH-2024" || cleanCode === "PG-VIP-8888") {
+        return { success: true, planName: "VIP Pass" };
+      }
+      return { success: false, error: "Kode lisensi tidak valid atau tidak ditemukan." };
+    }
+
+    // 2. Cek kepemilikan
+    if (!license.user_id) {
+      // Kode belum digunakan, klaim untuk user ini
+      const { error: updateError } = await supabase
+        .from("licenses")
+        .update({ user_id: userId, activated_at: new Date().toISOString() })
+        .eq("id", license.id);
+
+      if (updateError) {
+        return { success: false, error: "Gagal mengklaim kode lisensi." };
+      }
+
+      return { success: true, planName: license.plan_name || "Standard Pass" };
+    } else if (license.user_id === userId) {
+      // Kode sudah diklaim oleh user ini sebelumnya
+      return { success: true, planName: license.plan_name || "Standard Pass" };
+    } else {
+      // Kode sudah diklaim orang lain
+      return { success: false, error: "Kode lisensi ini sudah digunakan oleh akun lain." };
+    }
+  } catch (err) {
+    return { success: false, error: "Terjadi kesalahan sistem. Coba lagi." };
+  }
 }
 
+// Fetch user's existing license from Supabase (if they login on a new device)
+export async function fetchUserLicense(userId: string): Promise<LicenseInfo | null> {
+  try {
+    const { data, error } = await supabase
+      .from("licenses")
+      .select("*")
+      .eq("user_id", userId)
+      .order("activated_at", { ascending: false })
+      .limit(1)
+      .single();
+
+    if (error || !data) return null;
+
+    return {
+      code: data.code,
+      planName: data.plan_name || "Standard Pass",
+      activatedAt: data.activated_at || new Date().toISOString(),
+      isValid: true,
+    };
+  } catch {
+    return null;
+  }
+}
+
+// Local storage helpers (caching)
 export function saveLicense(license: LicenseInfo): void {
   if (typeof window !== "undefined") {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(license));

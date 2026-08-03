@@ -1,33 +1,46 @@
 import { useState, useMemo } from "react";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 
 const ITEMS_PER_PAGE = 8;
 import { Navbar } from "~/components/Navbar";
 import { Footer } from "~/components/Footer";
 import { CategoryFilter } from "~/components/CategoryFilter";
 import { ContentCard } from "~/components/ContentCard";
-import { getPerformancesByCategory, type Category } from "~/data/performances";
+import { getPerformancesByCategory, type Category, type Performance } from "~/data/performances.server";
 
 const CATEGORIES: Category[] = ["Semua", "Seni Musik", "Seni Tari", "Seni Rupa", "Seni Bahasa", "Non-Performance"];
 
+export async function loader(_args: LoaderFunctionArgs) {
+  const allPerformances = await getPerformancesByCategory("Semua");
+  return json({ allPerformances });
+}
+
 export default function Browse() {
+  const { allPerformances } = useLoaderData<typeof loader>();
   const [activeCategory, setActiveCategory] = useState<Category>("Semua");
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   const performances = useMemo(() => {
-    let filtered = getPerformancesByCategory(activeCategory);
-    
+    let filtered: Performance[] = allPerformances;
+
+    if (activeCategory !== "Semua") {
+      filtered = filtered.filter((p) => p.category === activeCategory);
+    }
+
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(p => 
-        p.title.toLowerCase().includes(query) || 
+      filtered = filtered.filter(p =>
+        p.title.toLowerCase().includes(query) ||
         p.artist.toLowerCase().includes(query) ||
         p.description.toLowerCase().includes(query)
       );
     }
-    
+
     return filtered;
-  }, [activeCategory, searchQuery]);
+  }, [activeCategory, searchQuery, allPerformances]);
 
   const totalPages = Math.max(1, Math.ceil(performances.length / ITEMS_PER_PAGE));
   const safePage = Math.min(currentPage, totalPages);
@@ -112,11 +125,10 @@ export default function Browse() {
                   <button
                     key={page}
                     onClick={() => setCurrentPage(page)}
-                    className={`h-9 min-w-9 rounded-full border px-3 text-sm font-semibold transition ${
-                      page === safePage
-                        ? "border-primary bg-primary/20 text-primary-strong"
-                        : "border-primary/20 bg-surface/70 text-text-muted hover:text-text-primary"
-                    }`}
+                    className={`h-9 min-w-9 rounded-full border px-3 text-sm font-semibold transition ${page === safePage
+                      ? "border-primary bg-primary/20 text-primary-strong"
+                      : "border-primary/20 bg-surface/70 text-text-muted hover:text-text-primary"
+                      }`}
                   >
                     {page}
                   </button>

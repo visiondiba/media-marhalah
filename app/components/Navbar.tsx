@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "@remix-run/react";
-import { getStoredLicense, type LicenseInfo } from "~/utils/auth";
+import { getStoredLicense, clearLicense, type LicenseInfo } from "~/utils/auth";
 import { LicenseModal } from "./LicenseModal";
+import { useAuth } from "~/hooks/useAuth";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [license, setLicense] = useState<LicenseInfo | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMode, setModalMode] = useState<"activate" | "info">("activate");
   const location = useLocation();
   const isHome = location.pathname === "/";
+  const { user, signOut } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,20 +22,30 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    setLicense(getStoredLicense());
+  }, [user]);
+
   const handleSuccess = (planName: string) => {
     setLicense(getStoredLicense());
   };
 
+  const handleLogout = async () => {
+    await signOut();
+    clearLicense();
+    setLicense(null);
+  };
+
   return (
     <>
-      <nav className={`fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between px-3 transition sm:px-8 lg:px-10 ${scrolled || !isHome ? "border-b border-primary/25 bg-[#080603]/95 backdrop-blur-xl" : "bg-transparent"}`}>
+      <nav className={`fixed inset-x-0 top-0 z-50 flex h-16 items-center justify-between px-3 transition sm:px-8 lg:px-10 ${scrolled || !isHome ? "border-b border-primary/25 bg-[var(--color-background)]/95 backdrop-blur-xl" : "bg-transparent"}`}>
         <div className="flex flex-1 items-center justify-start gap-3">
           <Link to="/" className="flex items-center gap-2 rounded-full border border-primary/30 bg-primary/15 px-2.5 py-1.5 shadow-[0_0_20px_rgba(201,168,76,0.08)]">
             <div className="flex h-8 w-8 items-center justify-center">
-              <img src="logo.png" alt="Logo" />
+              <img src="/logo.png" alt="Logo" />
             </div>
-            <h1 className="hidden text-large font-black lowercase  text-primary-soft sm:inline">
-              impervious <span className="text-[#C9A84C]">play.</span>
+            <h1 className="hidden text-large font-black lowercase text-primary-soft sm:inline">
+              catalyst<span className="text-primary uppercase">stream</span>
             </h1>
           </Link>
 
@@ -47,16 +60,27 @@ export function Navbar() {
         </div>
 
         <div className="flex flex-1 items-center justify-end gap-2">
-          {license ? (
-            <div className="hidden rounded-full border border-primary/40 bg-primary/15 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-strong sm:flex sm:items-center sm:gap-2" title={`Kode: ${license.code}`}>
+          {user ? (
+            <button
+              onClick={() => {
+                setModalMode("info");
+                setIsModalOpen(true);
+              }}
+              className="hidden rounded-full border border-primary/40 bg-primary/15 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-strong transition hover:border-primary/60 hover:bg-primary/20 sm:flex sm:items-center sm:gap-2"
+              title="Lihat info lisensi"
+            >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-3.5 w-3.5">
-                <path d="M7 10V8a5 5 0 1 1 10 0v2" />
-                <rect x="5" y="10" width="14" height="9" rx="2" />
+                <path d="M12 20.5a8.5 8.5 0 1 0 0-17 8.5 8.5 0 0 0 0 17z" />
+                <path d="M12 12v-2" />
+                <path d="M12 16h.01" />
               </svg>
-              <span>{license.planName}</span>
-            </div>
+              <span>{user.user_metadata?.full_name || user.email?.split("@")[0] || "Akun Google"}</span>
+            </button>
           ) : (
-            <button className="hidden rounded-full border border-primary/40 bg-primary px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[#060402] transition hover:bg-primary-strong sm:flex sm:items-center sm:gap-2" onClick={() => setIsModalOpen(true)}>
+            <button className="hidden rounded-full border border-primary/40 bg-primary px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] text-[var(--color-background)] transition hover:bg-primary-strong sm:flex sm:items-center sm:gap-2" onClick={() => {
+              setModalMode("activate");
+              setIsModalOpen(true);
+            }}>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-3.5 w-3.5">
                 <rect x="4" y="10" width="16" height="10" rx="2" />
                 <path d="M8 10V8a4 4 0 1 1 8 0v2" />
@@ -71,10 +95,20 @@ export function Navbar() {
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
           </Link>
+
+          {user && (
+            <button onClick={handleLogout} className="flex h-9 w-9 items-center justify-center rounded-full border border-red-500/30 bg-red-500/10 text-red-400 transition hover:border-red-500/50 hover:bg-red-500/20 hover:text-red-300" aria-label="Logout" title="Logout">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                <polyline points="16 17 21 12 16 7"></polyline>
+                <line x1="21" y1="12" x2="9" y2="12"></line>
+              </svg>
+            </button>
+          )}
         </div>
       </nav>
 
-      <div className="fixed inset-x-3 bottom-3 z-[60] flex items-center justify-around rounded-full border border-[#C9A84C]/25 bg-[#0A0804]/95 p-2 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:hidden">
+      <div className="fixed inset-x-3 bottom-3 z-[60] flex items-center justify-around rounded-full border border-primary/25 bg-[var(--color-background)]/95 p-2 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:hidden">
         <Link to="/" className={`flex flex-1 flex-col items-center rounded-full px-2 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] ${location.pathname === "/" ? "bg-primary/15 text-primary-strong" : "text-text-muted"}`}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="mb-1 h-4 w-4">
             <path d="M4 10.5 12 4l8 6.5" />
@@ -90,7 +124,10 @@ export function Navbar() {
           </svg>
           <small>Browse</small>
         </Link>
-        <button className="flex flex-1 flex-col items-center rounded-full px-2 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted" onClick={() => setIsModalOpen(true)}>
+        <button className="flex flex-1 flex-col items-center rounded-full px-2 py-2 text-[10px] font-semibold uppercase tracking-[0.12em] text-text-muted" onClick={() => {
+          setModalMode(user ? "info" : "activate");
+          setIsModalOpen(true);
+        }}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="mb-1 h-4 w-4">
             <rect x="4" y="10" width="16" height="10" rx="2" />
             <path d="M8 10V8a4 4 0 1 1 8 0v2" />
@@ -99,7 +136,13 @@ export function Navbar() {
         </button>
       </div>
 
-      <LicenseModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSuccess={handleSuccess} />
+      <LicenseModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSuccess={handleSuccess}
+        mode={modalMode}
+        license={license}
+      />
     </>
   );
 }

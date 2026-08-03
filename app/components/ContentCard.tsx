@@ -1,5 +1,6 @@
 import { Link } from "@remix-run/react";
 import type { Performance } from "../data/performances";
+import { useYoutubeDuration } from "~/hooks/useYoutubeDuration";
 
 interface ContentCardProps {
   performance: Performance;
@@ -9,15 +10,15 @@ interface ContentCardProps {
 
 export function ContentCard({ performance, index, variant = "row" }: ContentCardProps) {
   const isGrid = variant === "grid";
+  const displayedDuration = useYoutubeDuration(performance.videoUrl, performance.duration);
 
   return (
     <Link
       to={`/watch/${performance.id}`}
-      className={`group overflow-hidden rounded-[16px] border border-primary/20 bg-[rgba(18,16,10,0.92)] shadow-[0_8px_24px_rgba(0,0,0,0.3)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_12px_30px_rgba(201,168,76,0.16)] ${
-        isGrid
+      className={`group overflow-hidden rounded-[16px] border border-primary/20 bg-[rgba(18,16,10,0.92)] shadow-[0_8px_24px_rgba(0,0,0,0.3)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_12px_30px_rgba(201,168,76,0.16)] ${isGrid
           ? "w-full shrink-0 snap-start"
           : "mx-auto w-[86vw] max-w-[260px] shrink-0 snap-start sm:mx-0 sm:w-[320px] sm:max-w-none lg:w-[300px]"
-      }`}
+        }`}
     >
       <div className="relative aspect-video overflow-hidden bg-[radial-gradient(circle_at_top,_rgba(201,168,76,0.22),_transparent_60%),linear-gradient(135deg,_#1a140d_0%,_#0a0804_100%)]">
         <img
@@ -36,7 +37,7 @@ export function ContentCard({ performance, index, variant = "row" }: ContentCard
           {String(index + 1).padStart(2, "0")}
         </div>
         <div className="absolute bottom-2.5 right-2.5 rounded-md border border-primary/20 bg-[#0A0804]/75 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.16em] text-primary-strong backdrop-blur">
-          {performance.duration}
+          {displayedDuration}
         </div>
         <div className="absolute inset-0 flex items-center justify-center opacity-0 transition duration-300 group-hover:opacity-100">
           <div className="flex h-11 w-11 items-center justify-center rounded-full bg-primary text-[#0A0804] shadow-[0_0_24px_rgba(201,168,76,0.3)]">

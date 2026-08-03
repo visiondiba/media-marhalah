@@ -30,18 +30,18 @@ export function Footer() {
           <div className="space-y-4">
             <Link to="/" className="flex items-center gap-2">
               <div className="h-9 w-9"><img src="/logo.png" alt="Logo" /> </div>
-              
+
               <div className="flex items-center gap-1.5">
-                
+
                 <h1 className="text-2xl font-black lowercase text-secondary-soft">
-                  impervious <span className="text-[#C9A84C]">play.</span>
+                  catalyst<span className="text-[#C9A84C] uppercase">STREAM</span>
                 </h1>
-                
+
               </div>
             </Link>
 
             <p className="max-w-xs text-sm leading-6 text-text-muted">
-              Platform streaming eksklusif resmi untuk Panggung Gembira Impervious Generation. Tonton siaran langsung dan arsip video penampilan panggung terbaik di sini.
+              Platform streaming eksklusif resmi untuk Panggung Gembira 6101 ~ Impervious Generation. Tonton siaran langsung dan arsip video penampilan panggung terbaik di sini.
             </p>
 
             <div className="flex items-center gap-3 pt-1">
@@ -73,13 +73,7 @@ export function Footer() {
             </ul>
           </div>
 
-          <div className="space-y-4">
-            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-primary-strong">Tentang</h4>
-            <p className="text-sm leading-6 text-text-muted">
-              Semua tayangan diputar lewat platform YouTube.
-            </p>
-            
-          </div>
+
         </div>
 
         <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-xs text-text-muted sm:flex-row">

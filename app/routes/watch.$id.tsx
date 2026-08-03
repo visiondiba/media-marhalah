@@ -1,21 +1,143 @@
 import { useState, useEffect } from "react";
-import { useParams, Link } from "@remix-run/react";
+import type { LoaderFunctionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import { useLoaderData, Link } from "@remix-run/react";
 import { Navbar } from "~/components/Navbar";
 import { Footer } from "~/components/Footer";
 import { VideoPlayer } from "~/components/VideoPlayer";
 import { LicenseModal } from "~/components/LicenseModal";
-import { getPerformanceById, getPerformancesByCategory } from "~/data/performances";
-import { getStoredLicense, type LicenseInfo } from "~/utils/auth";
+import { getPerformanceById, getRelatedPerformances } from "~/data/performances.server";
+import { getStoredLicense, fetchUserLicense, saveLicense, type LicenseInfo } from "~/utils/auth";
+import { fetchVideoDuration } from "~/utils/youtube";
+import { useAuth } from "~/hooks/useAuth";
+import { supabase } from "~/utils/supabase";
+
+export async function loader({ params }: LoaderFunctionArgs) {
+  const performance = params.id ? await getPerformanceById(params.id) : null;
+
+  if (!performance) {
+    return json({ performance: null, related: [] });
+  }
+
+  const related = await getRelatedPerformances(performance.category, performance.id);
+
+  return json({ performance, related });
+}
 
 export default function Watch() {
-  const { id } = useParams();
-  const performance = getPerformanceById(id || "");
+  const { performance, related } = useLoaderData<typeof loader>();
   const [license, setLicense] = useState<LicenseInfo | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { user, isLoading: isAuthLoading } = useAuth();
 
   useEffect(() => {
     setLicense(getStoredLicense());
   }, []);
+
+  useEffect(() => {
+    const checkDbLicense = async () => {
+      if (user && !license) {
+        const dbLicense = await fetchUserLicense(user.id);
+        if (dbLicense) {
+          saveLicense(dbLicense);
+          setLicense(dbLicense);
+        }
+      }
+    };
+    if (!isAuthLoading) {
+      checkDbLicense();
+    }
+  }, [user, license, isAuthLoading]);
+
+  // Reaction State (Like / Dislike)
+  const [likesCount, setLikesCount] = useState(0);
+  const [dislikesCount, setDislikesCount] = useState(0);
+  const [userReaction, setUserReaction] = useState<"like" | "dislike" | null>(null);
+  const [youtubeDuration, setYoutubeDuration] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchReactions = async () => {
+      if (!performance) return;
+
+      const { data: reactionsData } = await supabase
+        .from("reactions")
+        .select("type")
+        .eq("performance_id", performance.id);
+
+      if (reactionsData) {
+        const likes = reactionsData.filter((r) => r.type === "like").length;
+        const dislikes = reactionsData.filter((r) => r.type === "dislike").length;
+        setLikesCount(likes);
+        setDislikesCount(dislikes);
+      }
+
+      if (user) {
+        const { data: userReact } = await supabase
+          .from("reactions")
+          .select("type")
+          .eq("performance_id", performance.id)
+          .eq("user_id", user.id)
+          .maybeSingle();
+
+        if (userReact) {
+          setUserReaction(userReact.type as "like" | "dislike");
+        } else {
+          setUserReaction(null);
+        }
+      } else {
+        setUserReaction(null);
+      }
+    };
+
+    fetchReactions();
+  }, [performance, user]);
+
+  const handleReaction = async (type: "like" | "dislike") => {
+    if (!performance) return;
+    if (!user) {
+      setIsModalOpen(true);
+      return;
+    }
+
+    const prevReaction = userReaction;
+
+    // Optimistic UI Update
+    if (prevReaction === type) {
+      setUserReaction(null);
+      if (type === "like") setLikesCount(prev => Math.max(0, prev - 1));
+      else setDislikesCount(prev => Math.max(0, prev - 1));
+
+      await supabase
+        .from("reactions")
+        .delete()
+        .eq("performance_id", performance.id)
+        .eq("user_id", user.id);
+    } else {
+      setUserReaction(type);
+      if (type === "like") {
+        setLikesCount(prev => prev + 1);
+        if (prevReaction === "dislike") setDislikesCount(prev => Math.max(0, prev - 1));
+      } else {
+        setDislikesCount(prev => prev + 1);
+        if (prevReaction === "like") setLikesCount(prev => Math.max(0, prev - 1));
+      }
+
+      await supabase
+        .from("reactions")
+        .upsert({
+          performance_id: performance.id,
+          user_id: user.id,
+          type,
+          created_at: new Date().toISOString()
+        }, { onConflict: "user_id,performance_id" });
+    }
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [performance?.id]);
 
   if (!performance) {
     return (
@@ -34,25 +156,64 @@ export default function Watch() {
       </div>
     );
   }
-  
-  // Get related performances (same category, excluding current)
-  const related = getPerformancesByCategory(performance.category)
-    .filter(p => p.id !== performance.id)
-    .slice(0, 4);
+
+  const relatedPerformances = related ?? [];
 
   const handleLicenseSuccess = () => {
     setLicense(getStoredLicense());
   };
-  
+
+  const isYouTubeUrl = !!performance.videoUrl?.match(/(?:youtube\.com\/|youtu\.be\/|youtube-nocookie\.com\/)/);
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    if (!performance?.videoUrl || !isYouTubeUrl) {
+      setYoutubeDuration(null);
+      return;
+    }
+
+    const apiKey = import.meta.env.VITE_YOUTUBE_API_KEY ?? process.env.VITE_YOUTUBE_API_KEY;
+    if (!apiKey) return;
+
+    fetchVideoDuration(performance.videoUrl, apiKey)
+      .then((duration) => {
+        if (!isCancelled && duration) {
+          setYoutubeDuration(duration);
+        }
+      })
+      .catch(() => {
+        if (!isCancelled) setYoutubeDuration(null);
+      });
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [performance?.videoUrl, isYouTubeUrl]);
+
+  const displayedDuration = isYouTubeUrl ? youtubeDuration ?? performance.duration : performance.duration;
+
   return (
     <div className="min-h-screen bg-[#0A0804] pt-16 text-[#F5E8C0]">
       <Navbar />
 
-      <div className="mx-auto max-w-7xl px-4 pb-24 pt-4 sm:px-8 lg:px-12 lg:pt-8">
-        <div className="overflow-hidden rounded-[28px] border border-[#C9A84C]/20 bg-[#16130A] shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
+      <div className="mx-auto max-w-7xl px-3 pb-16 pt-2 sm:px-6 md:pb-24 md:pt-4 lg:px-12 lg:pt-8">
+        <div className="overflow-hidden rounded-2xl border border-[#C9A84C]/20 bg-[#16130A] shadow-[0_8px_30px_rgba(0,0,0,0.35)] md:rounded-[28px] md:shadow-[0_12px_40px_rgba(0,0,0,0.35)]">
           {license ? (
             performance.videoUrl ? (
-              <VideoPlayer sourceUrl={performance.videoUrl} posterUrl={performance.thumbnail} title={performance.title} />
+              <div className="relative">
+                <VideoPlayer key={performance.id} sourceUrl={performance.videoUrl} posterUrl={performance.thumbnail} title={performance.title} />
+                {isYouTubeUrl ? (
+                  <div
+                    className="pointer-events-auto absolute inset-x-0 top-0 h-24 z-50 bg-transparent"
+                    aria-hidden="true"
+                    onClick={(event) => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }}
+                  />
+                ) : null}
+              </div>
             ) : (
               <div className="relative aspect-video overflow-hidden bg-[#0A0804]">
                 <img src={performance.thumbnail} alt={performance.title} className="h-full w-full object-cover" />
@@ -95,30 +256,25 @@ export default function Watch() {
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[1.2fr_0.8fr]">
           <main>
-            <h1 className="text-3xl font-semibold uppercase tracking-[0.08em] text-[#F5DFA0] sm:text-4xl">
+            <h1 className="text-xl font-semibold uppercase tracking-[0.08em] text-[#F5DFA0] sm:text-2xl md:text-3xl lg:text-4xl">
               {performance.title}
             </h1>
 
-            <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-[#B8A57A]">
+            <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-[#B8A57A] sm:text-sm sm:gap-3">
               <span className="rounded-full border border-[#C9A84C]/25 bg-[#C9A84C]/10 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-[#E8C96A]">
                 {performance.category}
               </span>
               <span>•</span>
               <span>{performance.year}</span>
               <span>•</span>
-              <span>{performance.duration}</span>
+              <span>{displayedDuration}</span>
             </div>
 
-            <div className="mt-6 flex flex-wrap gap-3">
+            <div className="mt-4 flex flex-wrap gap-2 sm:gap-3">
               {license ? (
-                <button className="inline-flex items-center gap-2 rounded-full bg-[#C9A84C] px-4 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#0A0804] transition hover:bg-[#E8C96A]">
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                  Putar
-                </button>
+                <></>
               ) : (
-                <button className="inline-flex items-center gap-2 rounded-full bg-[#C9A84C] px-4 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#0A0804] transition hover:bg-[#E8C96A]" onClick={() => setIsModalOpen(true)}>
+                <button className="inline-flex items-center gap-1 rounded-full bg-[#C9A84C] px-3 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#0A0804] transition hover:bg-[#E8C96A] sm:gap-2 sm:px-4 sm:py-3 sm:text-sm" onClick={() => setIsModalOpen(true)}>
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
                     <rect x="3" y="7" width="18" height="13" rx="2" />
                     <path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
@@ -126,34 +282,54 @@ export default function Watch() {
                   Masukkan Kode Lisensi
                 </button>
               )}
-              <button className="inline-flex items-center gap-2 rounded-full border border-[#C9A84C]/25 bg-white/5 px-4 py-3 text-sm font-semibold uppercase tracking-[0.16em] text-[#F5E8C0] transition hover:border-[#C9A84C]/50 hover:bg-white/10">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
-                  <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
-                </svg>
-                Simpan
-              </button>
+
+              {/* Like / Dislike Buttons */}
+              <div className="flex items-center rounded-full border border-[#C9A84C]/20 bg-white/5 p-1">
+                <button
+                  onClick={() => handleReaction("like")}
+                  className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] transition sm:gap-1.5 sm:px-4 sm:py-2 sm:text-xs ${userReaction === "like"
+                    ? "bg-[#C9A84C] text-[#0A0804]"
+                    : "text-[#F5E8C0] hover:bg-white/10"
+                    }`}
+                >
+                  <svg viewBox="0 0 24 24" fill={userReaction === "like" ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" className="h-3 w-3 sm:h-4 sm:w-4">
+                    <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" />
+                  </svg>
+                  <span>{likesCount}</span>
+                </button>
+
+                <div className="h-4 w-[1px] bg-[#C9A84C]/20 mx-1"></div>
+
+                <button
+                  onClick={() => handleReaction("dislike")}
+                  className={`flex items-center gap-1 rounded-full px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] transition sm:gap-1.5 sm:px-4 sm:py-2 sm:text-xs ${userReaction === "dislike"
+                    ? "bg-red-500/80 text-white"
+                    : "text-[#F5E8C0] hover:bg-white/10"
+                    }`}
+                >
+                  <svg viewBox="0 0 24 24" fill={userReaction === "dislike" ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2" className="h-3 w-3 sm:h-4 sm:w-4">
+                    <path d="M10 15v4a3 3 0 0 0 3 3l4-9V2H5.72a2 2 0 0 0-2 1.7l-1.38 9a2 2 0 0 0 2 2.3zm12-3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2h-3" />
+                  </svg>
+                  <span>{dislikesCount}</span>
+                </button>
+              </div>
             </div>
 
-            <p className="mt-6 max-w-2xl text-base leading-8 text-[#D9C08F]">{performance.description}</p>
-
-            <div className="mt-8 rounded-[24px] border border-[#C9A84C]/15 bg-[#16130A]/80 p-5">
-              <div className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[#A07830]">Menampilkan</div>
-              <div className="mt-2 text-lg font-semibold uppercase tracking-[0.08em] text-[#E8C96A]">{performance.artist}</div>
-            </div>
+            <p className="mt-5 max-w-2xl text-sm leading-7 text-[#D9C08F] sm:text-base sm:leading-8">{performance.description}</p>
           </main>
 
-          <aside className="rounded-[24px] border border-[#C9A84C]/15 bg-[#16130A]/80 p-5">
-            <h3 className="text-sm font-semibold uppercase tracking-[0.16em] text-[#F5E8C0]">Rekomendasi Terkait</h3>
-            <div className="mt-4 space-y-3">
+          <aside className="mt-6 rounded-xl border border-[#C9A84C]/15 bg-[#16130A]/80 p-4 md:mt-8 md:rounded-[24px] md:p-5">
+            <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-[#F5E8C0] sm:text-sm">Rekomendasi Terkait</h3>
+            <div className="mt-3 space-y-2 sm:mt-4 sm:space-y-3">
               {related.length > 0 ? related.map((item) => (
-                <Link to={`/watch/${item.id}`} key={item.id} className="flex gap-3 rounded-[18px] border border-transparent p-2 transition hover:border-[#C9A84C]/20 hover:bg-[#C9A84C]/10">
-                  <div className="h-20 w-24 shrink-0 overflow-hidden rounded-[14px] bg-[#0A0804]">
+                <Link to={`/watch/${item.id}`} key={item.id} className="flex gap-2 rounded-lg border border-transparent p-1.5 transition hover:border-[#C9A84C]/20 hover:bg-[#C9A84C]/10 sm:gap-3 sm:rounded-[18px] sm:p-2">
+                  <div className="h-14 w-16 shrink-0 overflow-hidden rounded-[10px] bg-[#0A0804] sm:h-20 sm:w-24 sm:rounded-[14px]">
                     <img src={item.thumbnail} alt={item.title} className="h-full w-full object-cover" />
                   </div>
                   <div className="min-w-0">
-                    <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#A07830]">{item.category}</div>
-                    <h4 className="mt-1 line-clamp-2 text-sm font-semibold uppercase tracking-[0.02em] text-[#F5E8C0]">{item.title}</h4>
-                    <div className="mt-1 text-xs text-[#8E7546]">{item.artist}</div>
+                    <div className="text-[8px] font-semibold uppercase tracking-[0.18em] text-[#A07830] sm:text-[10px]">{item.category}</div>
+                    <h4 className="mt-0.5 line-clamp-2 text-xs font-semibold uppercase tracking-[0.02em] text-[#F5E8C0] sm:mt-1 sm:text-sm">{item.title}</h4>
+                    <div className="mt-0.5 text-[10px] text-[#8E7546] sm:mt-1 sm:text-xs">{item.artist}</div>
                   </div>
                 </Link>
               )) : (

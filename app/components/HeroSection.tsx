@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "@remix-run/react";
 import type { Performance } from "../data/performances";
+import { useYoutubeDuration } from "~/hooks/useYoutubeDuration";
 
 interface HeroSectionProps {
   featuredItems: Performance[];
@@ -21,9 +22,10 @@ export function HeroSection({ featuredItems }: HeroSectionProps) {
   if (!featuredItems || featuredItems.length === 0) return null;
 
   const current = featuredItems[currentIndex];
+  const displayedDuration = useYoutubeDuration(current.videoUrl, current.duration);
 
   return (
-    <section className="relative isolate min-h-[84vh] overflow-hidden bg-[#080603] sm:min-h-[88vh] lg:min-h-[86vh]">
+    <section className="relative isolate min-h-[84vh] overflow-hidden bg-[var(--color-background)] sm:min-h-[88vh] lg:min-h-[86vh]">
       <div className="absolute inset-0" key={current.id}>
         <img src={current.thumbnail} alt={current.title} className="h-full w-full object-cover object-center" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(201,168,76,0.22),transparent_35%)]" />
@@ -53,7 +55,7 @@ export function HeroSection({ featuredItems }: HeroSectionProps) {
             <span className="text-text-muted">•</span>
             <span>{current.year}</span>
             <span className="text-text-muted">•</span>
-            <span>{current.duration}</span>
+            <span>{displayedDuration}</span>
             {current.views && (
               <>
                 <span className="text-text-muted">•</span>
@@ -62,18 +64,18 @@ export function HeroSection({ featuredItems }: HeroSectionProps) {
             )}
           </div>
 
-          <p className="mx-auto mb-6 max-w-lg text-sm leading-7 text-[#D9C08F] sm:mx-0 sm:mb-8 sm:text-base lg:text-lg">
+          <p className="mx-auto mb-6 max-w-lg text-sm leading-7 text-text-secondary sm:mx-0 sm:mb-8 sm:text-base lg:text-lg">
             {current.description}
           </p>
 
           <div className="flex flex-wrap justify-center gap-2 sm:justify-start sm:gap-3">
-            <Link to={`/watch/${current.id}`} className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-[#060402] shadow-[0_10px_30px_rgba(201,168,76,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-strong sm:px-5 sm:py-3">
+            <Link to={`/watch/${current.id}`} className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-background)] shadow-[0_10px_30px_rgba(201,168,76,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-strong sm:px-5 sm:py-3">
               <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
                 <path d="M8 5v14l11-7z" />
               </svg>
               Putar Sekarang
             </Link>
-            <Link to={`/watch/${current.id}`} className="inline-flex items-center gap-2 rounded-full border border-primary/35 bg-surface/80 px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-text-primary backdrop-blur-sm transition hover:border-primary/60 hover:bg-[#1A150E] sm:px-5 sm:py-3">
+            <Link to={`/watch/${current.id}`} className="inline-flex items-center gap-2 rounded-full border border-primary/35 bg-surface/80 px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-text-primary backdrop-blur-sm transition hover:border-primary/60 hover:bg-[var(--color-surface)] sm:px-5 sm:py-3">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
                 <circle cx="12" cy="12" r="9" />
                 <path d="M12 8v4" />

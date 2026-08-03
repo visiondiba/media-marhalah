@@ -7,6 +7,7 @@ interface VideoPlayerProps {
 }
 
 function getYouTubeVideoId(url: string): string | null {
+  if (!url) return null;
   const trimmedUrl = url.trim();
 
   const youtubePatterns = [
@@ -30,31 +31,29 @@ export function VideoPlayer({ sourceUrl, posterUrl, title }: VideoPlayerProps) {
   const youtubeId = getYouTubeVideoId(sourceUrl);
 
   useEffect(() => {
-    let player: any;
+    let player: any = null;
+    let isCancelled = false;
     const target = youtubeId ? youtubeRef.current : videoRef.current;
 
     if (typeof window !== "undefined" && target) {
       import("plyr")
         .then((PlyrModule) => {
+          if (isCancelled) return;
           const PlyrConstructor = PlyrModule.default || PlyrModule;
 
           if (target) {
             player = new PlyrConstructor(target, {
               autoplay: false,
-              controls: [
-                "play-large",
-                "play",
-                "progress",
-                "current-time",
-                "duration",
-                "mute",
-                "volume",
-                "captions",
-                "settings",
-                "pip",
-                "airplay",
-                "fullscreen",
-              ],
+controls: [
+  "play-large", "play", "progress", "current-time", "duration",
+  "mute", "volume", "captions", "settings", "pip", "airplay", "fullscreen"
+],
+              youtube: {
+                rel: 0,           // Nonaktifkan video terkait
+                showinfo: 0,      // Sembunyikan info judul/channel
+                modestbranding: 1, // Minimalkan branding YouTube
+                iv_load_policy: 3 // Nonaktifkan anotasi
+              },
             });
           }
         })
@@ -64,15 +63,20 @@ export function VideoPlayer({ sourceUrl, posterUrl, title }: VideoPlayerProps) {
     }
 
     return () => {
+      isCancelled = true;
       if (player && typeof player.destroy === "function") {
-        player.destroy();
+        try {
+          player.destroy();
+        } catch {
+          // Ignore destroy errors
+        }
       }
     };
   }, [youtubeId, sourceUrl, title]);
 
   if (youtubeId) {
     return (
-      <div className="plyr-wrapper">
+      <div key={sourceUrl} className="plyr-wrapper">
         <div
           ref={youtubeRef}
           className="plyr"
@@ -85,7 +89,7 @@ export function VideoPlayer({ sourceUrl, posterUrl, title }: VideoPlayerProps) {
   }
 
   return (
-    <div className="plyr-wrapper">
+    <div key={sourceUrl} className="plyr-wrapper">
       <video
         ref={videoRef}
         className="plyr"

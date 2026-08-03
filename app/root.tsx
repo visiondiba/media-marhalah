@@ -22,7 +22,7 @@ export const links: LinksFunction = () => [
 export const meta: MetaFunction = () => [
   { charSet: "utf-8" },
   { name: "viewport", content: "width=device-width, initial-scale=1" },
-  { title: "Impervious Play — Impervious Streaming Platform" },
+  { title: "catalystSTREAM — Impervious Streaming Platform" },
   {
     name: "description",
     content:

@@ -27,8 +27,8 @@ html {
 }
 
 body {
-  @apply min-h-screen overflow-x-hidden bg-[#060402] text-[#F5E8C0] antialiased;
-  background-image: radial-gradient(circle at top left, rgba(201, 168, 76, 0.14), transparent 28%), linear-gradient(135deg, #060402 0%, #0a0804 55%, #070501 100%);
+  @apply min-h-screen overflow-x-hidden bg-[var(--color-background)] text-[var(--color-text-primary)] antialiased;
+  background-image: radial-gradient(circle at top left, rgba(201, 168, 76, 0.14), transparent 28%), linear-gradient(135deg, var(--color-background) 0%, var(--color-surface) 55%, var(--color-background) 100%);
   font-family: var(--font-sans);
 }
 

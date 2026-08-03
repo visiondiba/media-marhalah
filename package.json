@@ -17,6 +17,7 @@
     "@remix-run/node": "^2.7.0",
     "@remix-run/react": "^2.7.0",
     "@remix-run/serve": "^2.7.0",
+    "@supabase/supabase-js": "^2.111.0",
     "isbot": "^4",
     "plyr": "^3.8.4",
     "plyr-react": "^6.0.0",
