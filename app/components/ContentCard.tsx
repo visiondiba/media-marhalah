@@ -8,13 +8,33 @@ interface ContentCardProps {
   variant?: "row" | "grid";
 }
 
+function encodeBase64Id(value: string) {
+  const normalized = value.trim();
+
+  if (typeof Buffer !== "undefined") {
+    try {
+      return Buffer.from(normalized).toString("base64url");
+    } catch {
+      // fall back to browser-safe encoding below
+    }
+  }
+
+  if (typeof btoa !== "undefined") {
+    const binary = unescape(encodeURIComponent(normalized));
+    return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+
+  return normalized;
+}
+
 export function ContentCard({ performance, index, variant = "row" }: ContentCardProps) {
   const isGrid = variant === "grid";
   const displayedDuration = useYoutubeDuration(performance.videoUrl);
+  const encodedId = encodeBase64Id(performance.id);
 
   return (
     <Link
-      to={`/watch/${performance.id}`}
+      to={`/watch/${encodedId}`}
       className={`group overflow-hidden rounded-[16px] border border-primary/20 bg-[rgba(18,16,10,0.92)] shadow-[0_8px_24px_rgba(0,0,0,0.3)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/50 hover:shadow-[0_12px_30px_rgba(201,168,76,0.16)] ${isGrid
         ? "w-full shrink-0 snap-start"
         : "mx-auto w-[86vw] max-w-[260px] shrink-0 snap-start sm:mx-0 sm:w-[320px] sm:max-w-none lg:w-[300px]"

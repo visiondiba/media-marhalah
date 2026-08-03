@@ -12,8 +12,52 @@ import { fetchVideoDuration } from "~/utils/youtube";
 import { useAuth } from "~/hooks/useAuth";
 import { supabase } from "~/utils/supabase";
 
+function makeBase64Id(value: string) {
+  const normalized = value.trim() || `${Date.now()}`;
+  if (typeof Buffer !== "undefined") {
+    return Buffer.from(normalized).toString("base64url");
+  }
+  return btoa(normalized).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+
+function encodeBase64Id(value: string) {
+  const normalized = value.trim();
+  if (typeof Buffer !== "undefined") {
+    try {
+      return Buffer.from(normalized).toString("base64url");
+    } catch {
+      // fall through to browser-safe encoding
+    }
+  }
+  if (typeof btoa !== "undefined") {
+    const binary = unescape(encodeURIComponent(normalized));
+    return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+  return normalized;
+}
+
+function decodeBase64Id(value: string) {
+  try {
+    if (typeof Buffer !== "undefined") {
+      return Buffer.from(value, "base64url").toString("utf8");
+    }
+
+    const standardBase64 = value.replace(/-/g, "+").replace(/_/g, "/") + "=".repeat((4 - value.length % 4) % 4);
+    return atob(standardBase64);
+  } catch {
+    return null;
+  }
+}
+
 export async function loader({ params }: LoaderFunctionArgs) {
-  const performance = params.id ? await getPerformanceById(params.id) : null;
+  let performance = params.id ? await getPerformanceById(params.id) : null;
+
+  if (!performance && params.id) {
+    const decodedId = decodeBase64Id(params.id);
+    if (decodedId && decodedId !== params.id) {
+      performance = await getPerformanceById(decodedId);
+    }
+  }
 
   if (!performance) {
     return json({ performance: null, related: [] });
@@ -202,7 +246,12 @@ export default function Watch() {
           {license ? (
             performance.videoUrl ? (
               <div className="relative">
-                <VideoPlayer key={performance.id} sourceUrl={performance.videoUrl} posterUrl={performance.thumbnail} title={performance.title} />
+                <VideoPlayer
+                  key={performance.id}
+                  sourceUrl={performance.videoUrl ?? ""}
+                  posterUrl={performance.thumbnail ?? "https://images.unsplash.com/photo-1492691527719-0d8b575c4db0?auto=format&fit=crop&w=900&q=80"}
+                  title={performance.title}
+                />
                 {isYouTubeUrl ? (
                   <div
                     className="pointer-events-auto absolute inset-x-0 top-0 h-24 z-50 bg-transparent"
@@ -320,7 +369,7 @@ export default function Watch() {
             <h3 className="text-xs font-semibold uppercase tracking-[0.16em] text-[#F5E8C0] sm:text-sm">Rekomendasi Terkait</h3>
             <div className="mt-3 space-y-2 sm:mt-4 sm:space-y-3">
               {related.length > 0 ? related.map((item) => (
-                <Link to={`/watch/${item.id}`} key={item.id} className="flex gap-2 rounded-lg border border-transparent p-1.5 transition hover:border-[#C9A84C]/20 hover:bg-[#C9A84C]/10 sm:gap-3 sm:rounded-[18px] sm:p-2">
+                <Link to={`/watch/${encodeBase64Id(item.id)}`} key={item.id} className="flex gap-2 rounded-lg border border-transparent p-1.5 transition hover:border-[#C9A84C]/20 hover:bg-[#C9A84C]/10 sm:gap-3 sm:rounded-[18px] sm:p-2">
                   <div className="h-14 w-16 shrink-0 overflow-hidden rounded-[10px] bg-[#0A0804] sm:h-20 sm:w-24 sm:rounded-[14px]">
                     <img src={item.thumbnail} alt={item.title} className="h-full w-full object-cover" />
                   </div>

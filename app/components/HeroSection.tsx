@@ -3,6 +3,22 @@ import { Link } from "@remix-run/react";
 import type { Performance } from "../data/performances";
 import { useYoutubeDuration } from "~/hooks/useYoutubeDuration";
 
+function encodeBase64Id(value: string) {
+  const normalized = value.trim();
+  if (typeof Buffer !== "undefined") {
+    try {
+      return Buffer.from(normalized).toString("base64url");
+    } catch {
+      // fallback to browser-safe encoding below
+    }
+  }
+  if (typeof btoa !== "undefined") {
+    const binary = unescape(encodeURIComponent(normalized));
+    return btoa(binary).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+  }
+  return normalized;
+}
+
 interface HeroSectionProps {
   featuredItems: Performance[];
 }
@@ -61,13 +77,13 @@ export function HeroSection({ featuredItems }: HeroSectionProps) {
           </p>
 
           <div className="flex flex-wrap justify-center gap-2 sm:justify-start sm:gap-3">
-            <Link to={`/watch/${current.id}`} className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-background)] shadow-[0_10px_30px_rgba(201,168,76,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-strong sm:px-5 sm:py-3">
+            <Link to={`/watch/${encodeBase64Id(current.id)}`} className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-[var(--color-background)] shadow-[0_10px_30px_rgba(201,168,76,0.24)] transition hover:-translate-y-0.5 hover:bg-primary-strong sm:px-5 sm:py-3">
               <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
                 <path d="M8 5v14l11-7z" />
               </svg>
               Putar Sekarang
             </Link>
-            <Link to={`/watch/${current.id}`} className="inline-flex items-center gap-2 rounded-full border border-primary/35 bg-surface/80 px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-text-primary backdrop-blur-sm transition hover:border-primary/60 hover:bg-[var(--color-surface)] sm:px-5 sm:py-3">
+            <Link to={`/watch/${encodeBase64Id(current.id)}`} className="inline-flex items-center gap-2 rounded-full border border-primary/35 bg-surface/80 px-4 py-2.5 text-sm font-semibold uppercase tracking-[0.14em] text-text-primary backdrop-blur-sm transition hover:border-primary/60 hover:bg-[var(--color-surface)] sm:px-5 sm:py-3">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
                 <circle cx="12" cy="12" r="9" />
                 <path d="M12 8v4" />

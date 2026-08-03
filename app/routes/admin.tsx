@@ -6,6 +6,11 @@ import { Footer } from "~/components/Footer";
 import { getPerformances, getPerformanceById, upsertPerformance, deletePerformance } from "~/data/performances.server";
 import type { Performance } from "~/data/performances";
 
+function makeBase64Id(value: string) {
+    const normalized = value.trim() || `${Date.now()}`;
+    return Buffer.from(normalized).toString("base64url");
+}
+
 export const meta: MetaFunction = () => [{ title: "Admin Video Data" }];
 
 export async function loader(_args: LoaderFunctionArgs) {
@@ -34,7 +39,7 @@ export async function action({ request }: ActionFunctionArgs) {
     const videoType = String(form.get("videoType") || "youtube") as Performance["videoType"];
 
     const performance: Performance = {
-        id: id || `video-${Date.now()}`,
+        id: id || makeBase64Id(title || videoUrl),
         title,
         category,
         description,

@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 interface VideoPlayerProps {
   sourceUrl: string;
-  posterUrl: string;
+  posterUrl?: string;
   title: string;
 }
 
@@ -44,10 +44,10 @@ export function VideoPlayer({ sourceUrl, posterUrl, title }: VideoPlayerProps) {
           if (target) {
             player = new PlyrConstructor(target, {
               autoplay: false,
-controls: [
-  "play-large", "play", "progress", "current-time", "duration",
-  "mute", "volume", "captions", "settings", "pip", "airplay", "fullscreen"
-],
+              controls: [
+                "play-large", "play", "progress", "current-time", "duration",
+                "mute", "volume", "captions", "settings", "pip", "airplay", "fullscreen"
+              ],
               youtube: {
                 rel: 0,           // Nonaktifkan video terkait
                 showinfo: 0,      // Sembunyikan info judul/channel

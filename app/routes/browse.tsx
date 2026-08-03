@@ -32,11 +32,14 @@ export default function Browse() {
 
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter(p =>
+      filtered = filtered.filter((p) =>
         p.title.toLowerCase().includes(query) ||
+        p.description.toLowerCase().includes(query)
+      );
+    }
 
     return filtered;
-    }, [activeCategory, searchQuery, allPerformances]);
+  }, [activeCategory, searchQuery, allPerformances]);
 
   const totalPages = Math.max(1, Math.ceil(performances.length / ITEMS_PER_PAGE));
   const safePage = Math.min(currentPage, totalPages);

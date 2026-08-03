@@ -11,9 +11,9 @@ const kategoriLinks = [
 ];
 
 const socialLinks = [
-  { label: "YouTube", href: "https://youtube.com", icon: "YT" },
-  { label: "Instagram", href: "https://instagram.com", icon: "IG" },
-  { label: "Official Website", href: "https://imperviousgeneration.my.id", icon: "IG" },
+  { label: "YouTube", href: "https://youtube.com", type: "youtube" as const },
+  { label: "Instagram", href: "https://instagram.com", type: "instagram" as const },
+  { label: "Official Website", href: "https://imperviousgeneration.my.id", type: "website" as const },
 ];
 
 const footerLinks = [
@@ -21,6 +21,31 @@ const footerLinks = [
   { label: "Ketentuan Layanan", href: "/ketentuan-layanan" },
   { label: "Hak Cipta", href: "/hak-cipta" },
 ];
+
+function SocialIcon({ type }: { type: "youtube" | "instagram" | "website" }) {
+  switch (type) {
+    case "youtube":
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+          <path d="M23.5 7.2a2.9 2.9 0 0 0-2.1-2.1C19.5 4.7 12 4.7 12 4.7s-7.5 0-9.4.4A2.9 2.9 0 0 0 .5 7.2 29.8 29.8 0 0 0 0 12a29.8 29.8 0 0 0 .5 4.8 2.9 2.9 0 0 0 2.1 2.1c1.9.4 9.4.4 9.4.4s7.5 0 9.4-.4a2.9 2.9 0 0 0 2.1-2.1A29.8 29.8 0 0 0 24 12a29.8 29.8 0 0 0-.5-4.8ZM9.5 15.5V8.5l6.5 3.5-6.5 3.5Z" />
+        </svg>
+      );
+    case "instagram":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
+          <rect x="2.5" y="2.5" width="19" height="19" rx="5" />
+          <path d="M16.5 7.5h.01" />
+          <path d="M7.5 12a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0Z" />
+        </svg>
+      );
+    case "website":
+      return (
+        <img src="/logo.png" alt="Logo" className="h-4 w-4" />
+      );
+    default:
+      return null;
+  }
+}
 
 export function Footer() {
   return (
@@ -52,9 +77,9 @@ export function Footer() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={social.label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 bg-white/5 text-[10px] font-semibold uppercase tracking-wide text-primary-strong transition hover:border-primary/40 hover:bg-primary/10"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-primary/20 bg-white/5 text-primary-strong transition hover:border-primary/40 hover:bg-primary/10"
                 >
-                  {social.icon}
+                  <SocialIcon type={social.type} />
                 </a>
               ))}
             </div>

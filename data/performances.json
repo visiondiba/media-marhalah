@@ -11,7 +11,7 @@
     {
         "id": "pg-102",
         "title": "DA 5100 - Visual Opening",
-        "category": "Seni Musik",
+        "category": "Non-Performance",
         "description": "Pertunjukan orkestra malam yang menampilkan harmoni senar, piano, dan vokal hangat dalam suasana intim.",
         "featured": true,
         "videoUrl": "https://www.youtube.com/watch?v=6KIzNeDO1g4",
@@ -26,54 +26,381 @@
         "videoType": "youtube"
     },
     {
-        "id": "pg-104",
-        "title": "Ritme Bumi",
-        "category": "Seni Tari",
-        "description": "Tarian energik yang menggabungkan gerak tradisional dengan ritme modern, penuh kekuatan dan ketepatan.",
-        "featured": true,
-        "videoUrl": "https://www.youtube.com/watch?v=JGwWNGJdvx8",
-        "videoType": "youtube"
-    },
-    {
-        "id": "pg-106",
-        "title": "Pilar Cahaya",
-        "category": "Seni Rupa",
-        "description": "Sesi melukis langsung dengan warna-warna hangat dan komposisi visual yang terasa hidup dan monumental.",
-        "featured": true,
-        "videoUrl": "https://www.youtube.com/watch?v=3fumBcKC6RE",
-        "videoType": "youtube"
-    },
-    {
-        "id": "pg-107",
-        "title": "Warna di Langit",
-        "category": "Seni Rupa",
-        "description": "Karya seni rupa yang mengekspresikan suasana sore hari dengan goresan warna yang lembut dan dramatis.",
-        "videoUrl": "https://www.youtube.com/watch?v=Vb4g8j1wR6A",
-        "videoType": "youtube"
-    },
-    {
-        "id": "pg-108",
-        "title": "Menyusun Harapan",
-        "category": "Seni Bahasa",
-        "description": "Pertunjukan puisi dan deklamasi yang membangun suasana reflektif lewat kata-kata yang tajam dan indah.",
-        "featured": true,
-        "videoUrl": "https://www.youtube.com/watch?v=8aGhZQkoFbQ",
-        "videoType": "youtube"
-    },
-    {
-        "id": "pg-109",
-        "title": "Kisah dari Satu Kata",
-        "category": "Seni Bahasa",
-        "description": "Monolog puitis yang membawa penonton menelusuri emosi lewat jeda, intonasi, dan makna yang tersisa.",
-        "videoUrl": "https://www.youtube.com/watch?v=4uCwsXG5U18",
-        "videoType": "youtube"
-    },
-    {
-        "id": "pg-110",
-        "title": "Bintang Hening",
+        "id": "video-1785771030194",
+        "title": "DA 5100 - Visual Sapa MC",
         "category": "Non-Performance",
-        "description": "Segmen penutupan berkesan dengan nuansa tenang, pencahayaan lembut, dan momen refleksi untuk penonton.",
-        "videoUrl": "https://www.youtube.com/watch?v=YQHsXMglC9A",
+        "description": "Visual sambutan pembuka acara oleh Master of Ceremony.",
+        "featured": true,
+        "videoUrl": "https://www.youtube.com/watch?v=2E-ngdbbQPQ",
+        "videoType": "youtube",
+        "thumbnail": "https://img.youtube.com/vi/2E-ngdbbQPQ/maxresdefault.jpg"
+    },
+    {
+        "id": "musik-02",
+        "title": "Voice Musthafa : Sing-Off NASGOR",
+        "category": "Seni Musik",
+        "description": "Adu vokal harmonis penuh energi dalam pertunjukan Sing-Off.",
+        "videoUrl": "https://www.youtube.com/watch?v=MnpHrKwrziM",
+        "videoType": "youtube"
+    },
+    {
+        "id": "musik-03",
+        "title": "Choir-l-Ummah",
+        "category": "Seni Musik",
+        "description": "Penampilan paduan suara yang megah dan menyentuh hati.",
+        "videoUrl": "https://www.youtube.com/watch?v=jNuXFnJD_Jc",
+        "videoType": "youtube"
+    },
+    {
+        "id": "musik-04",
+        "title": "NasyiDA",
+        "category": "Seni Musik",
+        "description": "Lantunan nasyid islami yang penuh kedamaian dan harmoni.",
+        "videoUrl": "https://www.youtube.com/watch?v=Z6yKgLmeHFU",
+        "videoType": "youtube"
+    },
+    {
+        "id": "musik-05",
+        "title": "EQ Band : Bongkar",
+        "category": "Seni Musik",
+        "description": "Aksi panggung energik membawakan lagu Bongkar dari EQ Band.",
+        "videoUrl": "https://www.youtube.com/watch?v=YayTBKqlf9c",
+        "videoType": "youtube"
+    },
+    {
+        "id": "musik-06",
+        "title": "DA n DOET",
+        "category": "Seni Musik",
+        "description": "Kolaborasi musik instrumental dan vokal yang menghibur.",
+        "videoUrl": "https://www.youtube.com/watch?v=igd5XM96o8Y",
+        "videoType": "youtube"
+    },
+    {
+        "id": "musik-07",
+        "title": "EQ Band : Jangan Remehkan",
+        "category": "Seni Musik",
+        "description": "Penampilan menghentak dari EQ Band membawakan lagu Jangan Remehkan.",
+        "videoUrl": "https://www.youtube.com/watch?v=A2tJRmZSsok",
+        "videoType": "youtube"
+    },
+    {
+        "id": "musik-08",
+        "title": "Grand Closing : Pulang",
+        "category": "Seni Musik",
+        "description": "Penutup manis sesi Seni Musik dengan suasana penuh haru.",
+        "videoUrl": "https://www.youtube.com/watch?v=5zMd1z7JGsc",
+        "videoType": "youtube"
+    },
+    {
+        "id": "teater-01",
+        "title": "Drama Act 1 : Pesan Penyangkalan",
+        "category": "Seni Teater",
+        "description": "Awal dari kisah panggung yang membawa emosi penolakan dan konflik awal.",
+        "videoUrl": "https://www.youtube.com/watch?v=oR-60WYF4lU",
+        "videoType": "youtube"
+    },
+    {
+        "id": "teater-02",
+        "title": "T.O.J Tongue of Justice",
+        "category": "Seni Teater",
+        "description": "Pertunjukan teater dengan dialog tajam tentang keadilan.",
+        "videoUrl": "https://www.youtube.com/watch?v=fHhWwwlsulA",
+        "videoType": "youtube"
+    },
+    {
+        "id": "teater-03",
+        "title": "Drama Act 2 : Pesan Amarah",
+        "category": "Seni Teater",
+        "description": "Puncak emosi memuncak dalam babak amarah yang intens.",
+        "videoUrl": "https://www.youtube.com/watch?v=1nonHXynmqk",
+        "videoType": "youtube"
+    },
+    {
+        "id": "teater-04",
+        "title": "Dialog : Identitas Gawat Darurat",
+        "category": "Seni Teater",
+        "description": "Babak adu argumentasi mendalam tentang pencarian jati diri.",
+        "videoUrl": "https://www.youtube.com/watch?v=YcBRYmWo3jc",
+        "videoType": "youtube"
+    },
+    {
+        "id": "teater-05",
+        "title": "Drama Act 3 : Pesan Negoisasi",
+        "category": "Seni Teater",
+        "description": "Pencarian titik tengah dalam gejolak emosi drama.",
+        "videoUrl": "https://www.youtube.com/watch?v=lepVoBRvhN8",
+        "videoType": "youtube"
+    },
+    {
+        "id": "teater-06",
+        "title": "Ini Tok Show",
+        "category": "Seni Teater",
+        "description": "Segmen talkshow komedi interaktif di atas panggung.",
+        "videoUrl": "#",
+        "videoType": "youtube"
+    },
+    {
+        "id": "teater-07",
+        "title": "Phantomystica",
+        "category": "Seni Teater",
+        "description": "Pertunjukan teater bernuansa misterius dan fantastis.",
+        "videoUrl": "https://www.youtube.com/watch?v=iB2ALafaFBs",
+        "videoType": "youtube"
+    },
+    {
+        "id": "teater-08",
+        "title": "Maqsop D.K.I",
+        "category": "Seni Teater",
+        "description": "Pementasan teater komedi satiran khas ibu kota.",
+        "videoUrl": "https://www.youtube.com/watch?v=Q3SO1bwu4yc",
+        "videoType": "youtube"
+    },
+    {
+        "id": "teater-09",
+        "title": "Drama Act 4 : Pesan Peringatan",
+        "category": "Seni Teater",
+        "description": "Babak krusial sebelum klimaks pementasan teater.",
+        "videoUrl": "https://www.youtube.com/watch?v=71G6p7H9VHQ",
+        "videoType": "youtube"
+    },
+    {
+        "id": "teater-10",
+        "title": "Pesan Terakhir : Penerimaan",
+        "category": "Seni Teater",
+        "description": "Penutup rangkaian cerita teater dengan kedamaian dan penerimaan.",
+        "videoUrl": "#",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-01",
+        "title": "Grand Opening",
+        "category": "Seni Tari",
+        "description": "Tarian kolosal pembuka acara yang megah dan spektakuler.",
+        "videoUrl": "https://www.youtube.com/watch?v=Ls87JotR75w",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-02",
+        "title": "Nadham Rencong",
+        "category": "Seni Tari",
+        "description": "Tarian tradisional khas Aceh dengan ritme dinamis dan tegas.",
+        "videoUrl": "https://www.youtube.com/watch?v=wfbWafBlPH4",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-03",
+        "title": "Somba-Somba Diraja",
+        "category": "Seni Tari",
+        "description": "Tarian penghormatan bernuansa melayu dan kerajaan.",
+        "videoUrl": "https://www.youtube.com/watch?v=khGlO9wr2Cw",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-04",
+        "title": "Wiroyudho",
+        "category": "Seni Tari",
+        "description": "Tarian keprajuritan yang gagah berani dan penuh semangat.",
+        "videoUrl": "https://www.youtube.com/watch?v=S4HFJDQ1n34",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-05",
+        "title": "Manari-Nari Basamo",
+        "category": "Seni Tari",
+        "description": "Tarian kebersamaan khas Minang yang riang gembira.",
+        "videoUrl": "https://www.youtube.com/watch?v=Xg3TUmDap3g",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-06",
+        "title": "Tatarucingan",
+        "category": "Seni Tari",
+        "description": "Tarian tradisional Sunda yang ceria dan penuh jenaka.",
+        "videoUrl": "https://www.youtube.com/watch?v=9qpnbC38doU",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-07",
+        "title": "Satrio Kencono",
+        "category": "Seni Tari",
+        "description": "Tarian pewayangan Jawa tentang keagungan ksatria.",
+        "videoUrl": "https://www.youtube.com/watch?v=PYimHNs5KYU",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-08",
+        "title": "Tong PU Gaya",
+        "category": "Seni Tari",
+        "description": "Tarian khas Papua dengan gerak cepat dan penuh daya hidup.",
+        "videoUrl": "https://www.youtube.com/watch?v=036VlRrMhu8",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-09",
+        "title": "Nusantara Berpadu Ria",
+        "category": "Seni Tari",
+        "description": "Kombinasi gerak tari dari berbagai daerah Indonesia.",
+        "videoUrl": "https://www.youtube.com/watch?v=BRUm_LBdRwc",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-10",
+        "title": "Hunza Balistani",
+        "category": "Seni Tari",
+        "description": "Tarian eksperimental dengan pengaruh budaya Asia Tengah.",
+        "videoUrl": "https://www.youtube.com/watch?v=7r5EAFVL7do",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-11",
+        "title": "KINJAZ : Kage Suitaru",
+        "category": "Seni Tari",
+        "description": "Tarian modern dance / urban hip-hop presisi gaya Kinjaz.",
+        "videoUrl": "https://www.youtube.com/watch?v=3ga-SILPRuQ",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-12",
+        "title": "ASEAN Fusion",
+        "category": "Seni Tari",
+        "description": "Perpaduan tari tradisional dari berbagai negara di Asia Tenggara.",
+        "videoUrl": "https://www.youtube.com/watch?v=DfOGVP_Fd7A",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-13",
+        "title": "Slava Rhythm",
+        "category": "Seni Tari",
+        "description": "Tarian modern berenergi tinggi dengan ritme lagu Slavia.",
+        "videoUrl": "https://www.youtube.com/watch?v=Fn5Y5PnEotg",
+        "videoType": "youtube"
+    },
+    {
+        "id": "tari-14",
+        "title": "ZonZero",
+        "category": "Seni Tari",
+        "description": "Aksi koreografi modern futuristik sebagai penutup pertunjukan tari.",
+        "videoUrl": "https://www.youtube.com/watch?v=sFcwS8ooqWc",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-01",
+        "title": "Visual Protokol",
+        "category": "Seni Rupa",
+        "description": "Tampilan animasi visual backdrop untuk protokoler acara.",
+        "videoUrl": "https://www.youtube.com/watch?v=hXlo7nQZjxY",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-02",
+        "title": "Visual Opening",
+        "category": "Seni Rupa",
+        "description": "Visual artistik pembuka panggung utama.",
+        "videoUrl": "https://www.youtube.com/watch?v=2E-ngdbbQPQ",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-03",
+        "title": "Visual Sapa Mc",
+        "category": "Seni Rupa",
+        "description": "Animasi backdrop khusus saat Master of Ceremony menyapa penonton.",
+        "videoUrl": "https://www.youtube.com/watch?v=2E-ngdbbQPQ",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-04",
+        "title": "Master of Ceremony",
+        "category": "Seni Rupa",
+        "description": "Visual pendukung saat MC memandu jalannya panggung.",
+        "videoUrl": "https://www.youtube.com/watch?v=Xda_vY3J9DM",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-05",
+        "title": "Tilawah Ayat Suci Al-Quran",
+        "category": "Seni Rupa",
+        "description": "Visual khidmat pendukung lantunan ayat suci Al-Qur'an.",
+        "videoUrl": "https://www.youtube.com/watch?v=Hzux41Q7vs0",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-06",
+        "title": "Sambutan Ketua Drama Arena",
+        "category": "Seni Rupa",
+        "description": "Visual grafis pendukung pidato Ketua Drama Arena.",
+        "videoUrl": "https://www.youtube.com/watch?v=5lkoaDqzKNk",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-07",
+        "title": "Sambutan Pimpinan",
+        "category": "Seni Rupa",
+        "description": "Visual latar resmi saat sambutan Pimpinan.",
+        "videoUrl": "https://www.youtube.com/watch?v=L7KN6vHYwrM",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-08",
+        "title": "Visual : Five Assemble",
+        "category": "Seni Rupa",
+        "description": "Tampilan sinematik visual Five Assemble.",
+        "videoUrl": "https://www.youtube.com/watch?v=oj5Hr2AkryI",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-09",
+        "title": "Visual-Pesan Pertama",
+        "category": "Seni Rupa",
+        "description": "Grafis panggung pembawa narasi pesan pertama.",
+        "videoUrl": "#",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-10",
+        "title": "Visual Nyatakan Kebenaran",
+        "category": "Seni Rupa",
+        "description": "Ilustrasi visual bertema pernyataan kebenaran.",
+        "videoUrl": "#",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-11",
+        "title": "MC Non Formal",
+        "category": "Seni Rupa",
+        "description": "Tampilan panggung santai untuk pembawa acara non-formal.",
+        "videoUrl": "https://www.youtube.com/watch?v=mmV8zjLHrnc",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-12",
+        "title": "Visual : Nusantara Berpadu Ria",
+        "category": "Seni Rupa",
+        "description": "Animasi kekayaan budaya Nusantara di LED panggung.",
+        "videoUrl": "https://www.youtube.com/watch?v=zLs3WyRsOX4",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-13",
+        "title": "Visual : Milliu Membentuk Perilaku",
+        "category": "Seni Rupa",
+        "description": "Karya visual filosofis tentang pengaruh lingkungan.",
+        "videoUrl": "https://www.youtube.com/watch?v=k8f0DLWpNp8",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-14",
+        "title": "Iklan Aqalin",
+        "category": "Seni Rupa",
+        "description": "Selingan tayangan iklan sponsor Aqalin di layar panggung.",
+        "videoUrl": "https://www.youtube.com/watch?v=UxgaHukh3SI",
+        "videoType": "youtube"
+    },
+    {
+        "id": "rupa-15",
+        "title": "Visual : Ceritanya Berakhir",
+        "category": "Seni Rupa",
+        "description": "Tampilan panggung akhir penutup kisah pertunjukan.",
+        "videoUrl": "https://www.youtube.com/watch?v=eh8--vROu7g",
         "videoType": "youtube"
     }
 ]
