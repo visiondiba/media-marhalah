@@ -2,30 +2,41 @@ import type { LoaderFunction } from "@remix-run/node";
 
 export const loader: LoaderFunction = async ({ params }) => {
     const id = params.id;
+    console.log(`[drive-media] loader invoked for id=${id}`);
     if (!id) return new Response("Missing id", { status: 400 });
 
     const { logErrorOnce } = await import("~/utils/errorLogger.server");
 
     // If a service account key is provided, use it to fetch the file via Drive API authenticated as the service account.
-    const saKey = process.env.GOOGLE_SERVICE_ACCOUNT_KEY;
-    if (saKey) {
+    // Accept raw JSON in `GOOGLE_SERVICE_ACCOUNT_KEY` or base64-encoded JSON in `GOOGLE_SERVICE_ACCOUNT_KEY_B64`.
+    const saKeyRaw = (process.env.GOOGLE_SERVICE_ACCOUNT_KEY_B64 ? Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT_KEY_B64, 'base64').toString('utf8') : undefined) ?? (import.meta.env.GOOGLE_SERVICE_ACCOUNT_KEY_B64 ? Buffer.from(import.meta.env.GOOGLE_SERVICE_ACCOUNT_KEY_B64, 'base64').toString('utf8') : undefined);
+    if (saKeyRaw) {
         try {
             const { google } = await import('googleapis');
-            const credentials = typeof saKey === 'string' ? JSON.parse(saKey) : saKey;
-            const auth = new google.auth.GoogleAuth({
-                credentials,
-                scopes: ['https://www.googleapis.com/auth/drive.readonly'],
-            });
-            const client = await auth.getClient();
-            const drive = google.drive({ version: 'v3', auth: client });
+            let credentials: any = undefined;
+            try {
+                credentials = JSON.parse(saKeyRaw as string);
+            } catch (parseErr: any) {
+                logErrorOnce(`drive-media-sa-parse-error-${String(parseErr?.message ?? parseErr)}`, `Failed to parse GOOGLE_SERVICE_ACCOUNT_KEY: ${String(parseErr)}`);
+                credentials = undefined;
+            }
 
-            const res = await drive.files.get({ fileId: id, alt: 'media' }, { responseType: 'stream' as any });
-            const upstreamStream = (res as any).data;
-            const headers = new Headers();
-            const ct = (res as any).headers?.['content-type'] || (res as any).headers?.['Content-Type'];
-            if (ct) headers.set('content-type', ct);
-            headers.set('cache-control', 'public, max-age=3600');
-            return new Response(upstreamStream as any, { status: 200, headers });
+            if (credentials) {
+                const auth = new google.auth.GoogleAuth({
+                    credentials,
+                    scopes: ['https://www.googleapis.com/auth/drive.readonly'],
+                });
+                // Pass the GoogleAuth instance to the client factory to avoid client-type mismatches
+                const drive = google.drive({ version: 'v3', auth });
+
+                const res = await drive.files.get({ fileId: id, alt: 'media' }, { responseType: 'stream' as any });
+                const upstreamStream = (res as any).data;
+                const headers = new Headers();
+                const ct = (res as any).headers?.['content-type'] || (res as any).headers?.['Content-Type'];
+                if (ct) headers.set('content-type', ct);
+                headers.set('cache-control', 'public, max-age=3600');
+                return new Response(upstreamStream as any, { status: 200, headers });
+            }
         } catch (err: any) {
             logErrorOnce(`drive-media-sa-exception-${String(err?.message ?? err)}`, `Service-account drive fetch failed for ${id}: ${String(err)}`);
             // fallthrough to API-key / uc fallback below
