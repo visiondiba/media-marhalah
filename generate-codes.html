@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Generator</title>
+    <style>
+        body {
+            font-family: Inter, system-ui, sans-serif;
+            background: #0a0804;
+            color: #f5e8c0;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 900px;
+            background: rgba(22, 19, 10, 0.9);
+            border: 1px solid rgba(201, 168, 76, 0.25);
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            font-size: clamp(1.75rem, 2.5vw, 2.75rem);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: #c9a84c;
+        }
+
+        .controls {
+            display: grid;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: grid;
+            gap: 0.4rem;
+            font-size: 0.95rem;
+            color: #d9c08f;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            border-radius: 14px;
+            border: 1px solid rgba(201, 168, 76, 0.25);
+            background: #0a0804;
+            color: #f5e8c0;
+            padding: 0.85rem 1rem;
+            font-size: 0.95rem;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 240px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            resize: vertical;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        button {
+            border: none;
+            border-radius: 999px;
+            padding: 0.9rem 1.4rem;
+            font-size: 0.95rem;
+            background: #c9a84c;
+            color: #0a0804;
+            cursor: pointer;
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            background: #e8c96a;
+        }
+
+        .note {
+            color: #b8a57a;
+            font-size: 0.92rem;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h1>Bulk Code Generator</h1>
+        <div class="controls">
+            <label>
+                Jumlah kode
+                <input id="count" type="number" min="3000" value="3000" />
+            </label>
+            <label>
+                Format kode
+                <select id="format">
+                    <option value="ALPHA_NUM">8 karakter (LL9A53QC)</option>
+                    <option value="UUID">UUID</option>
+                    <option value="CUSTOM_PREFIX">PREFIX-XXXX</option>
+                </select>
+            </label>
+            <label id="prefixLabel">
+                Prefix
+                <input id="prefix" type="text" placeholder="PG" value="PG" />
+            </label>
+            <label>
+                Supabase URL
+                <input id="supabaseUrl" type="text" placeholder="https://your-project.supabase.co" />
+            </label>
+            <label>
+                Supabase Anon Key
+                <input id="supabaseKey" type="text" placeholder="public-anon-key" />
+            </label>
+            <label>
+                Table Supabase
+                <input id="tableName" type="text" placeholder="licenses" value="licenses" />
+            </label>
+            <label>
+                Plan Name (licenses only)
+                <input id="planName" type="text" placeholder="Standard Access Ticket" value="Standard Access Ticket" />
+            </label>
+        </div>
+        <div class="actions">
+            <button id="generate">Generate JSON</button>
+            <button id="download">Download JSON</button>
+            <button id="copy">Copy JSON</button>
+            <button id="upload">Upload to Supabase</button>
+        </div>
+        <p class="note">Hasil akan berupa array JSON minimal 3000 kode. Gunakan untuk import atau data seed.</p>
+        <textarea id="output" readonly placeholder="Hasil JSON akan muncul di sini..."></textarea>
+    </div>
+    <script>
+        const countInput = document.getElementById('count');
+        const formatSelect = document.getElementById('format');
+        const prefixInput = document.getElementById('prefix');
+        const prefixLabel = document.getElementById('prefixLabel');
+        const output = document.getElementById('output');
+        const generateBtn = document.getElementById('generate');
+        const downloadBtn = document.getElementById('download');
+        const copyBtn = document.getElementById('copy');
+
+        function randomSegment(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += chars[Math.floor(Math.random() * chars.length)];
+            }
+            return result;
+        }
+
+        function createCode(format, prefix) {
+            if (format === 'UUID') {
+                return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+                    const r = Math.random() * 16 | 0;
+                    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16).toUpperCase();
+                });
+            }
+
+            if (format === 'CUSTOM_PREFIX') {
+                return `${prefix}-${randomSegment(4)}${randomSegment(4)}`;
+            }
+
+            return randomSegment(8);
+        }
+
+        function generateCodes() {
+            const count = Math.max(3000, Number(countInput.value) || 3000);
+            const format = formatSelect.value;
+            const prefix = prefixInput.value.trim() || 'PG';
+            const codes = [];
+            const seen = new Set();
+
+            while (codes.length < count) {
+                const code = createCode(format, prefix);
+                if (!seen.has(code)) {
+                    seen.add(code);
+                    codes.push({ code });
+                }
+            }
+
+            const json = JSON.stringify(codes, null, 2);
+            output.value = json;
+            return json;
+        }
+
+        function downloadJson(json) {
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'codes.json';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        generateBtn.addEventListener('click', () => {
+            generateCodes();
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const json = output.value || generateCodes();
+            downloadJson(json);
+        });
+
+        copyBtn.addEventListener('click', async () => {
+            const json = output.value || generateCodes();
+            try {
+                await navigator.clipboard.writeText(json);
+                alert('JSON berhasil disalin ke clipboard');
+            } catch (err) {
+                alert('Gagal menyalin JSON. Silakan copy manual.');
+            }
+        });
+
+        const supabaseUrlInput = document.getElementById('supabaseUrl');
+        const supabaseKeyInput = document.getElementById('supabaseKey');
+        const tableNameInput = document.getElementById('tableName');
+        const planNameInput = document.getElementById('planName');
+        const uploadBtn = document.getElementById('upload');
+
+        async function uploadToSupabase() {
+            const json = output.value || generateCodes();
+            const records = JSON.parse(json);
+            const url = supabaseUrlInput.value.trim();
+            const key = supabaseKeyInput.value.trim();
+            const table = tableNameInput.value.trim() || 'licenses';
+
+            if (!url || !key) {
+                alert('Supabase URL dan Anon Key harus diisi.');
+                return;
+            }
+
+            if (!records.length) {
+                alert('Tidak ada data untuk diupload. Silakan generate terlebih dahulu.');
+                return;
+            }
+
+            if (!window.supabase || typeof window.supabase.createClient !== 'function') {
+                alert('Supabase client tidak tersedia. Pastikan koneksi internet aktif.');
+                return;
+            }
+
+            const planName = planNameInput.value.trim();
+            const client = window.supabase.createClient(url, key);
+            const chunkSize = 500;
+            let uploaded = 0;
+
+            for (let i = 0; i < records.length; i += chunkSize) {
+                const chunk = records.slice(i, i + chunkSize).map((item) => ({
+                    ...item,
+                    plan_name: planName || 'Standard Access Ticket',
+                }));
+                const { data, error } = await client.from(table).insert(chunk);
+                if (error) {
+                    alert(`Upload gagal: ${error.message}`);
+                    return;
+                }
+                uploaded += chunk.length;
+                output.value = `Sedang upload ${uploaded}/${records.length}...`;
+            }
+
+            alert(`Upload selesai: ${uploaded} baris ke table ${table}.`);
+            generateCodes();
+        }
+
+        uploadBtn.addEventListener('click', uploadToSupabase);
+
+        formatSelect.addEventListener('change', () => {
+            if (formatSelect.value === 'CUSTOM_PREFIX') {
+                prefixLabel.style.display = 'grid';
+            } else {
+                prefixLabel.style.display = 'none';
+            }
+        });
+
+        prefixLabel.style.display = formatSelect.value === 'CUSTOM_PREFIX' ? 'grid' : 'none';
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js/dist/umd/supabase.js"></script>
+</body>
+
+</html>

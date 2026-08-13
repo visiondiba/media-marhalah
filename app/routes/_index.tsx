@@ -10,6 +10,7 @@ import { getFeaturedPerformances, getPerformancesByCategory } from "~/data/perfo
 export const meta: MetaFunction = () => {
   return [
     { title: "catalystSTREAM — Impervious Streaming Platform" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
     { name: "description", content: "Official Exclusive Streaming of Panggung Gembira" },
     { icon: "/favicon.ico" }
   ];

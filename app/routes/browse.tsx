@@ -1,7 +1,7 @@
 import { useState, useMemo } from "react";
 import type { LoaderFunctionArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useSearchParams } from "@remix-run/react";
 
 const ITEMS_PER_PAGE = 8;
 import { Navbar } from "~/components/Navbar";
@@ -19,8 +19,10 @@ export async function loader(_args: LoaderFunctionArgs) {
 
 export default function Browse() {
   const { allPerformances } = useLoaderData<typeof loader>();
+  const [searchParams] = useSearchParams();
+  const initialQuery = searchParams.get("q") || "";
   const [activeCategory, setActiveCategory] = useState<Category>("Semua");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(initialQuery);
   const [currentPage, setCurrentPage] = useState(1);
 
   const performances = useMemo(() => {

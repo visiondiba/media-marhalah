@@ -83,24 +83,14 @@ export function deletePerformance(id: string): Promise<void> {
 
 export function getFeaturedPerformances(): Promise<Performance[]> {
     const all = readPerformancesJson().map((performance) => normalizePerformance(performance));
-    const categories: Category[] = ["Non-Performance", "Seni Musik", "Seni Tari", "Seni Rupa", "Seni Bahasa"];
-    const featuredByCategory = new Map<Category, Performance>();
+    const featuredItems = all.filter((performance) => performance.featured);
 
-    for (const performance of all) {
-        const isFeatured = performance.featured ?? false;
-        if (!isFeatured) continue;
-
-        const current = featuredByCategory.get(performance.category);
-        if (!current) {
-            featuredByCategory.set(performance.category, performance);
-        }
+    if (featuredItems.length >= 10) {
+        return Promise.resolve(featuredItems.slice(0, 10));
     }
 
-    return Promise.resolve(
-        categories
-            .map((category) => featuredByCategory.get(category) ?? all.find((performance) => performance.category === category))
-            .filter((performance): performance is Performance => Boolean(performance))
-    );
+    const remaining = all.filter((performance) => !performance.featured);
+    return Promise.resolve([...featuredItems, ...remaining].slice(0, 10));
 }
 
 export function getRelatedPerformances(category: Category, excludeId: string): Promise<Performance[]> {
