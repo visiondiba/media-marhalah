@@ -17,8 +17,8 @@ export function Navbar() {
   // Active menu tab index for sliding liquid glass pill selector
   let activeTab = 0;
   if (location.pathname === "/") activeTab = 0;
-  else if (location.pathname === "/gallery") activeTab = 1;
-  else if (location.pathname === "/browse") activeTab = 2;
+  else if (location.pathname.startsWith("/gallery")) activeTab = 1;
+  else if (location.pathname.startsWith("/browse")) activeTab = 2;
 
   // Apple-style Live Drag & Snap Pill Gesture State
   const dockRef = useRef<HTMLDivElement>(null);
@@ -62,7 +62,7 @@ export function Navbar() {
         navigate("/");
       } else if (targetTab === 1 && (activeTab !== 1 || isModalOpen)) {
         setIsModalOpen(false);
-        navigate("/browse");
+        navigate("/gallery");
       } else if (targetTab === 2 && !isModalOpen) {
         setModalMode(user ? "info" : "activate");
         setIsModalOpen(true);
@@ -141,18 +141,56 @@ export function Navbar() {
   return (
     <>
       <nav className={`fixed inset-x-3 top-3 z-50 mx-auto flex h-14 max-w-7xl items-center justify-between px-3 transition-all duration-300 sm:top-4 sm:h-16 sm:px-6 rounded-full border border-white/20 shadow-[0_12px_40px_rgba(0,0,0,0.65),inset_0_1px_0_rgba(255,255,255,0.25)] backdrop-blur-3xl ${scrolled || !isHome
-          ? "bg-zinc-950/75 border-white/25 shadow-[0_16px_45px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.3)]"
-          : "bg-zinc-950/45"
+        ? "bg-zinc-950/75 border-white/25 shadow-[0_16px_45px_rgba(0,0,0,0.8),inset_0_1px_0_rgba(255,255,255,0.3)]"
+        : "bg-zinc-950/45"
         }`}>
         <div className="flex flex-1 items-center justify-start gap-3">
-          <Link to="/" className="flex items-center gap-2 rounded-full border border-primary/30 bg-primary/15 px-2.5 py-1.5 shadow-[0_0_20px_rgba(201,168,76,0.12)] transition hover:scale-105">
+          <Link to="/" className="flex shrink-0 items-center gap-2 rounded-full border border-primary/30 bg-primary/15 px-2.5 py-1.5 shadow-[0_0_20px_rgba(201,168,76,0.12)] transition hover:scale-105">
             <div className="flex h-7 w-7 items-center justify-center sm:h-8 sm:w-8">
-              <img src="/logo.png" alt="Logo" />
+              <img src="/logo.png" alt="Logo" className="h-full w-full object-contain" />
             </div>
             <h1 className="hidden text-base font-black lowercase text-primary-soft sm:inline">
               catalyst<span className="text-primary uppercase">stream</span>
             </h1>
           </Link>
+
+          {/* Desktop navigation */}
+          <div className="hidden items-center gap-1 md:flex">
+            <Link
+              to="/"
+              className={`rounded-full px-3.5 py-2 text-xs font-semibold tracking-wide transition ${location.pathname === "/"
+                ? "bg-primary/15 text-primary-strong"
+                : "text-text-muted hover:bg-white/5 hover:text-white"
+                }`}
+            >
+              Beranda
+            </Link>
+
+            <Link
+              to="/gallery"
+              className={`flex items-center gap-2 rounded-full px-3.5 py-2 text-xs font-semibold tracking-wide transition ${location.pathname.startsWith("/gallery")
+                ? "bg-primary/15 text-primary-strong"
+                : "text-text-muted hover:bg-white/5 hover:text-white"
+                }`}
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M3 9h18" />
+                <path d="M9 21V9" />
+              </svg>
+              Gallery
+            </Link>
+
+            <Link
+              to="/browse"
+              className={`rounded-full px-3.5 py-2 text-xs font-semibold tracking-wide transition ${location.pathname.startsWith("/browse")
+                ? "bg-primary/15 text-primary-strong"
+                : "text-text-muted hover:bg-white/5 hover:text-white"
+                }`}
+            >
+              Browse
+            </Link>
+          </div>
 
           <form onSubmit={handleSearchSubmit} className="relative flex items-center">
             <div className="flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 backdrop-blur-md transition-all focus-within:border-primary/50 focus-within:bg-white/10 focus-within:shadow-[0_0_20px_rgba(201,168,76,0.2)]">
@@ -169,18 +207,6 @@ export function Navbar() {
               />
             </div>
           </form>
-        </div>
-
-        <div className="hidden sm:flex flex-1 items-center justify-center gap-4">
-          <Link
-            to="/gallery"
-            className={`rounded-full px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.16em] transition ${location.pathname === "/gallery"
-                ? "border border-primary/60 bg-primary/25 text-primary-strong"
-                : "border border-white/20 bg-white/5 text-text-muted hover:border-primary/40 hover:bg-primary/15 hover:text-primary-strong"
-              }`}
-          >
-            Galeri
-          </Link>
         </div>
 
         <div className="flex flex-1 items-center justify-end gap-2">
@@ -240,8 +266,8 @@ export function Navbar() {
           className="absolute top-1.5 bottom-1.5 left-1.5 w-[calc((100%-12px)/3)] rounded-[20px] border border-primary/40 bg-gradient-to-b from-white/30 via-white/10 to-white/5 shadow-[inset_0_1px_0_rgba(255,255,255,0.45),0_4px_20px_rgba(212,175,55,0.35)] pointer-events-none will-change-transform"
           style={{
             transform: `translate3d(${isPillDragging && livePillPercent !== null
-                ? livePillPercent * 200
-                : (isModalOpen ? 2 : activeTab) * 100
+              ? livePillPercent * 200
+              : (isModalOpen ? 2 : activeTab) * 100
               }%, 0, 0) ${isPillDragging ? 'scale(1.06, 0.94)' : 'scale(1, 1)'}`,
             transition: isPillDragging
               ? 'transform 0.08s cubic-bezier(0.25, 1, 0.5, 1)'
