@@ -51,7 +51,7 @@ export interface DriveFolderPage {
  */
 function getServiceAccountCredentials(): any | null {
     const raw =
-        process.env.GOOGLE_SERVICE_ACCOUNT_KEY ||
+
         (process.env.GOOGLE_SERVICE_ACCOUNT_KEY_B64
             ? Buffer.from(
                 process.env.GOOGLE_SERVICE_ACCOUNT_KEY_B64,
