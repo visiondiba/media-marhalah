@@ -54,13 +54,7 @@ function HeroSlide({ item, isActive }: { item: Performance; isActive: boolean })
           }`}
         >
           <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-primary/35 bg-primary/15 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-primary-strong shadow-[0_0_25px_rgba(201,168,76,0.12)] sm:mb-4">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-3.5 w-3.5">
-              <path d="M4 7h16" />
-              <path d="M7 3v4" />
-              <path d="M17 3v4" />
-              <rect x="4" y="5" width="16" height="15" rx="2" />
-            </svg>
-            <span>{item.category} • {item.id}</span>
+            <span>{item.category}</span>
           </div>
 
           <h1 className="mb-3 text-3xl font-bold leading-[0.95] text-primary-soft drop-shadow-[0_4px_24px_rgba(201,168,76,0.18)] sm:mb-4 sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">

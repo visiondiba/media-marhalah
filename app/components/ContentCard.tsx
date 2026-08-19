@@ -68,15 +68,12 @@ export function ContentCard({ performance, index, variant = "row" }: ContentCard
         </div>
       </div>
       <div className="p-3 sm:p-3.5">
-        <div className="mb-1.5 text-[9px] font-semibold uppercase tracking-[0.2em] text-primary-strong/80">
+        <div className="mb-1.5 text-[9px] font-bold uppercase tracking-[0.3em] text-primary-strong/80">
           {performance.category}
         </div>
-        <h3 className="mb-1.5 line-clamp-2 text-[12px] font-semibold uppercase tracking-[0.02em] text-text-primary sm:text-[13px] leading-[1.35]">
+        <h3 className="mb-1.5 line-clamp-2 text-[12px] font-semibold uppercase text-text-primary sm:text-[13px] leading-[1.35]">
           {performance.title}
         </h3>
-        <div className="flex items-center gap-2 text-[10px] text-text-muted sm:text-[11px]">
-          <span className="font-medium text-primary-strong/80">{performance.category}</span>
-        </div>
       </div>
     </Link>
   );

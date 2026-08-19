@@ -27,7 +27,6 @@ function normalizePerformance(performance: Performance): Performance {
     return normalized;
 }
 
-const defaultThumbnail = "https://images.unsplash.com/photo-1492691527719-0d8b575c4db0?auto=format&fit=crop&w=900&q=80";
 
 function readPerformancesJson(): Performance[] {
     const raw = fs.readFileSync(dataPath, "utf-8");

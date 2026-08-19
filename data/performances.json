@@ -1,406 +1,398 @@
 [
-    {
-        "id": "pg-101",
-        "title": "DA 5100 - Visual Protokoler",
-        "category": "Non-Performance",
-        "description": "Pembukaan malam puncak dengan lampu panggung, sorak sorai, dan suasana megah yang memikat seluruh penonton.",
-        "featured": true,
-        "videoUrl": "https://www.youtube.com/watch?v=hXlo7nQZjxY",
-        "videoType": "youtube"
-    },
-    {
-        "id": "pg-102",
-        "title": "DA 5100 - Visual Opening",
-        "category": "Non-Performance",
-        "description": "Pertunjukan orkestra malam yang menampilkan harmoni senar, piano, dan vokal hangat dalam suasana intim.",
-        "featured": true,
-        "videoUrl": "https://www.youtube.com/watch?v=6KIzNeDO1g4",
-        "videoType": "youtube"
-    },
-    {
-        "id": "pg-103",
-        "title": "DA 5100 - Hadroh",
-        "category": "Seni Musik",
-        "description": "Kolaborasi vokal yang mengangkat emosi lewat lirik sederhana dan irama yang penuh ketenangan.",
-        "videoUrl": "https://www.youtube.com/watch?v=7PiVbvrq0bg",
-        "videoType": "youtube"
-    },
-    {
-        "id": "video-1785771030194",
-        "title": "DA 5100 - Visual Sapa MC",
-        "category": "Non-Performance",
-        "description": "Visual sambutan pembuka acara oleh Master of Ceremony.",
-        "featured": true,
-        "videoUrl": "https://www.youtube.com/watch?v=2E-ngdbbQPQ",
-        "videoType": "youtube",
-        "thumbnail": "https://img.youtube.com/vi/2E-ngdbbQPQ/maxresdefault.jpg"
-    },
-    {
-        "id": "musik-02",
-        "title": "Voice Musthafa : Sing-Off NASGOR",
-        "category": "Seni Musik",
-        "description": "Adu vokal harmonis penuh energi dalam pertunjukan Sing-Off.",
-        "videoUrl": "https://www.youtube.com/watch?v=MnpHrKwrziM",
-        "videoType": "youtube"
-    },
-    {
-        "id": "musik-03",
-        "title": "Choir-l-Ummah",
-        "category": "Seni Musik",
-        "description": "Penampilan paduan suara yang megah dan menyentuh hati.",
-        "videoUrl": "https://www.youtube.com/watch?v=jNuXFnJD_Jc",
-        "videoType": "youtube"
-    },
-    {
-        "id": "musik-04",
-        "title": "NasyiDA",
-        "category": "Seni Musik",
-        "description": "Lantunan nasyid islami yang penuh kedamaian dan harmoni.",
-        "videoUrl": "https://www.youtube.com/watch?v=Z6yKgLmeHFU",
-        "videoType": "youtube"
-    },
-    {
-        "id": "musik-05",
-        "title": "EQ Band : Bongkar",
-        "category": "Seni Musik",
-        "description": "Aksi panggung energik membawakan lagu Bongkar dari EQ Band.",
-        "videoUrl": "https://www.youtube.com/watch?v=YayTBKqlf9c",
-        "videoType": "youtube"
-    },
-    {
-        "id": "musik-06",
-        "title": "DA n DOET",
-        "category": "Seni Musik",
-        "description": "Kolaborasi musik instrumental dan vokal yang menghibur.",
-        "videoUrl": "https://www.youtube.com/watch?v=igd5XM96o8Y",
-        "videoType": "youtube"
-    },
-    {
-        "id": "musik-07",
-        "title": "EQ Band : Jangan Remehkan",
-        "category": "Seni Musik",
-        "description": "Penampilan menghentak dari EQ Band membawakan lagu Jangan Remehkan.",
-        "videoUrl": "https://www.youtube.com/watch?v=A2tJRmZSsok",
-        "videoType": "youtube"
-    },
-    {
-        "id": "musik-08",
-        "title": "Grand Closing : Pulang",
-        "category": "Seni Musik",
-        "description": "Penutup manis sesi Seni Musik dengan suasana penuh haru.",
-        "videoUrl": "https://www.youtube.com/watch?v=5zMd1z7JGsc",
-        "videoType": "youtube"
-    },
-    {
-        "id": "teater-01",
-        "title": "Drama Act 1 : Pesan Penyangkalan",
-        "category": "Seni Teater",
-        "description": "Awal dari kisah panggung yang membawa emosi penolakan dan konflik awal.",
-        "videoUrl": "https://www.youtube.com/watch?v=oR-60WYF4lU",
-        "videoType": "youtube"
-    },
-    {
-        "id": "teater-02",
-        "title": "T.O.J Tongue of Justice",
-        "category": "Seni Teater",
-        "description": "Pertunjukan teater dengan dialog tajam tentang keadilan.",
-        "videoUrl": "https://www.youtube.com/watch?v=fHhWwwlsulA",
-        "videoType": "youtube"
-    },
-    {
-        "id": "teater-03",
-        "title": "Drama Act 2 : Pesan Amarah",
-        "category": "Seni Teater",
-        "description": "Puncak emosi memuncak dalam babak amarah yang intens.",
-        "videoUrl": "https://www.youtube.com/watch?v=1nonHXynmqk",
-        "videoType": "youtube"
-    },
-    {
-        "id": "teater-04",
-        "title": "Dialog : Identitas Gawat Darurat",
-        "category": "Seni Teater",
-        "description": "Babak adu argumentasi mendalam tentang pencarian jati diri.",
-        "videoUrl": "https://www.youtube.com/watch?v=YcBRYmWo3jc",
-        "videoType": "youtube"
-    },
-    {
-        "id": "teater-05",
-        "title": "Drama Act 3 : Pesan Negoisasi",
-        "category": "Seni Teater",
-        "description": "Pencarian titik tengah dalam gejolak emosi drama.",
-        "videoUrl": "https://www.youtube.com/watch?v=lepVoBRvhN8",
-        "videoType": "youtube"
-    },
-    {
-        "id": "teater-06",
-        "title": "Ini Tok Show",
-        "category": "Seni Teater",
-        "description": "Segmen talkshow komedi interaktif di atas panggung.",
-        "videoUrl": "#",
-        "videoType": "youtube"
-    },
-    {
-        "id": "teater-07",
-        "title": "Phantomystica",
-        "category": "Seni Teater",
-        "description": "Pertunjukan teater bernuansa misterius dan fantastis.",
-        "videoUrl": "https://www.youtube.com/watch?v=iB2ALafaFBs",
-        "videoType": "youtube"
-    },
-    {
-        "id": "teater-08",
-        "title": "Maqsop D.K.I",
-        "category": "Seni Teater",
-        "description": "Pementasan teater komedi satiran khas ibu kota.",
-        "videoUrl": "https://www.youtube.com/watch?v=Q3SO1bwu4yc",
-        "videoType": "youtube"
-    },
-    {
-        "id": "teater-09",
-        "title": "Drama Act 4 : Pesan Peringatan",
-        "category": "Seni Teater",
-        "description": "Babak krusial sebelum klimaks pementasan teater.",
-        "videoUrl": "https://www.youtube.com/watch?v=71G6p7H9VHQ",
-        "videoType": "youtube"
-    },
-    {
-        "id": "teater-10",
-        "title": "Pesan Terakhir : Penerimaan",
-        "category": "Seni Teater",
-        "description": "Penutup rangkaian cerita teater dengan kedamaian dan penerimaan.",
-        "videoUrl": "#",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-01",
-        "title": "Grand Opening",
-        "category": "Seni Tari",
-        "description": "Tarian kolosal pembuka acara yang megah dan spektakuler.",
-        "videoUrl": "https://www.youtube.com/watch?v=Ls87JotR75w",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-02",
-        "title": "Nadham Rencong",
-        "category": "Seni Tari",
-        "description": "Tarian tradisional khas Aceh dengan ritme dinamis dan tegas.",
-        "videoUrl": "https://www.youtube.com/watch?v=wfbWafBlPH4",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-03",
-        "title": "Somba-Somba Diraja",
-        "category": "Seni Tari",
-        "description": "Tarian penghormatan bernuansa melayu dan kerajaan.",
-        "videoUrl": "https://www.youtube.com/watch?v=khGlO9wr2Cw",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-04",
-        "title": "Wiroyudho",
-        "category": "Seni Tari",
-        "description": "Tarian keprajuritan yang gagah berani dan penuh semangat.",
-        "videoUrl": "https://www.youtube.com/watch?v=S4HFJDQ1n34",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-05",
-        "title": "Manari-Nari Basamo",
-        "category": "Seni Tari",
-        "description": "Tarian kebersamaan khas Minang yang riang gembira.",
-        "videoUrl": "https://www.youtube.com/watch?v=Xg3TUmDap3g",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-06",
-        "title": "Tatarucingan",
-        "category": "Seni Tari",
-        "description": "Tarian tradisional Sunda yang ceria dan penuh jenaka.",
-        "videoUrl": "https://www.youtube.com/watch?v=9qpnbC38doU",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-07",
-        "title": "Satrio Kencono",
-        "category": "Seni Tari",
-        "description": "Tarian pewayangan Jawa tentang keagungan ksatria.",
-        "videoUrl": "https://www.youtube.com/watch?v=PYimHNs5KYU",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-08",
-        "title": "Tong PU Gaya",
-        "category": "Seni Tari",
-        "description": "Tarian khas Papua dengan gerak cepat dan penuh daya hidup.",
-        "videoUrl": "https://www.youtube.com/watch?v=036VlRrMhu8",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-09",
-        "title": "Nusantara Berpadu Ria",
-        "category": "Seni Tari",
-        "description": "Kombinasi gerak tari dari berbagai daerah Indonesia.",
-        "videoUrl": "https://www.youtube.com/watch?v=BRUm_LBdRwc",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-10",
-        "title": "Hunza Balistani",
-        "category": "Seni Tari",
-        "description": "Tarian eksperimental dengan pengaruh budaya Asia Tengah.",
-        "videoUrl": "https://www.youtube.com/watch?v=7r5EAFVL7do",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-11",
-        "title": "KINJAZ : Kage Suitaru",
-        "category": "Seni Tari",
-        "description": "Tarian modern dance / urban hip-hop presisi gaya Kinjaz.",
-        "videoUrl": "https://www.youtube.com/watch?v=3ga-SILPRuQ",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-12",
-        "title": "ASEAN Fusion",
-        "category": "Seni Tari",
-        "description": "Perpaduan tari tradisional dari berbagai negara di Asia Tenggara.",
-        "videoUrl": "https://www.youtube.com/watch?v=DfOGVP_Fd7A",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-13",
-        "title": "Slava Rhythm",
-        "category": "Seni Tari",
-        "description": "Tarian modern berenergi tinggi dengan ritme lagu Slavia.",
-        "videoUrl": "https://www.youtube.com/watch?v=Fn5Y5PnEotg",
-        "videoType": "youtube"
-    },
-    {
-        "id": "tari-14",
-        "title": "ZonZero",
-        "category": "Seni Tari",
-        "description": "Aksi koreografi modern futuristik sebagai penutup pertunjukan tari.",
-        "videoUrl": "https://www.youtube.com/watch?v=sFcwS8ooqWc",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-01",
-        "title": "Visual Protokol",
-        "category": "Seni Rupa",
-        "description": "Tampilan animasi visual backdrop untuk protokoler acara.",
-        "videoUrl": "https://www.youtube.com/watch?v=hXlo7nQZjxY",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-02",
-        "title": "Visual Opening",
-        "category": "Seni Rupa",
-        "description": "Visual artistik pembuka panggung utama.",
-        "videoUrl": "https://www.youtube.com/watch?v=2E-ngdbbQPQ",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-03",
-        "title": "Visual Sapa Mc",
-        "category": "Seni Rupa",
-        "description": "Animasi backdrop khusus saat Master of Ceremony menyapa penonton.",
-        "videoUrl": "https://www.youtube.com/watch?v=2E-ngdbbQPQ",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-04",
-        "title": "Master of Ceremony",
-        "category": "Seni Rupa",
-        "description": "Visual pendukung saat MC memandu jalannya panggung.",
-        "videoUrl": "https://www.youtube.com/watch?v=Xda_vY3J9DM",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-05",
-        "title": "Tilawah Ayat Suci Al-Quran",
-        "category": "Seni Rupa",
-        "description": "Visual khidmat pendukung lantunan ayat suci Al-Qur'an.",
-        "videoUrl": "https://www.youtube.com/watch?v=Hzux41Q7vs0",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-06",
-        "title": "Sambutan Ketua Drama Arena",
-        "category": "Seni Rupa",
-        "description": "Visual grafis pendukung pidato Ketua Drama Arena.",
-        "videoUrl": "https://www.youtube.com/watch?v=5lkoaDqzKNk",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-07",
-        "title": "Sambutan Pimpinan",
-        "category": "Seni Rupa",
-        "description": "Visual latar resmi saat sambutan Pimpinan.",
-        "videoUrl": "https://www.youtube.com/watch?v=L7KN6vHYwrM",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-08",
-        "title": "Visual : Five Assemble",
-        "category": "Seni Rupa",
-        "description": "Tampilan sinematik visual Five Assemble.",
-        "videoUrl": "https://www.youtube.com/watch?v=oj5Hr2AkryI",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-09",
-        "title": "Visual-Pesan Pertama",
-        "category": "Seni Rupa",
-        "description": "Grafis panggung pembawa narasi pesan pertama.",
-        "videoUrl": "#",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-10",
-        "title": "Visual Nyatakan Kebenaran",
-        "category": "Seni Rupa",
-        "description": "Ilustrasi visual bertema pernyataan kebenaran.",
-        "videoUrl": "#",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-11",
-        "title": "MC Non Formal",
-        "category": "Seni Rupa",
-        "description": "Tampilan panggung santai untuk pembawa acara non-formal.",
-        "videoUrl": "https://www.youtube.com/watch?v=mmV8zjLHrnc",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-12",
-        "title": "Visual : Nusantara Berpadu Ria",
-        "category": "Seni Rupa",
-        "description": "Animasi kekayaan budaya Nusantara di LED panggung.",
-        "videoUrl": "https://www.youtube.com/watch?v=zLs3WyRsOX4",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-13",
-        "title": "Visual : Milliu Membentuk Perilaku",
-        "category": "Seni Rupa",
-        "description": "Karya visual filosofis tentang pengaruh lingkungan.",
-        "videoUrl": "https://www.youtube.com/watch?v=k8f0DLWpNp8",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-14",
-        "title": "Iklan Aqalin",
-        "category": "Seni Rupa",
-        "description": "Selingan tayangan iklan sponsor Aqalin di layar panggung.",
-        "videoUrl": "https://www.youtube.com/watch?v=UxgaHukh3SI",
-        "videoType": "youtube"
-    },
-    {
-        "id": "rupa-15",
-        "title": "Visual : Ceritanya Berakhir",
-        "category": "Seni Rupa",
-        "description": "Tampilan panggung akhir penutup kisah pertunjukan.",
-        "videoUrl": "https://www.youtube.com/watch?v=eh8--vROu7g",
-        "videoType": "youtube"
-    }
+  {
+    "id": "pg-101",
+    "title": "PG 6101 - Visual Entrance",
+    "category": "Non-Performance",
+    "description": "Visual pembuka yang menghadirkan atmosfer megah melalui permainan cahaya, grafis, dan nuansa sinematik sebagai awal malam puncak Panggung Gembira.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/j9QOLQbtKkQ",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-102",
+    "title": "PG 6101 - Hadroh",
+    "category": "Seni Musik",
+    "description": "Penampilan hadroh yang menghadirkan lantunan musik religi dengan irama khas dan suasana penuh khidmat.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/mgYJgJPXWP0",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-103",
+    "title": "PG 6101 - Visual Sapa MC",
+    "category": "Non-Performance",
+    "description": "Visual pembuka yang mengiringi momen sapaan MC dengan tampilan grafis dan suasana panggung yang dinamis.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/fvIzcimW-Z4",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-104",
+    "title": "PG 6101 - Sapa MC",
+    "category": "Non-Performance",
+    "description": "Momen sapaan MC kepada seluruh penonton sebagai pengantar menuju rangkaian acara malam puncak Panggung Gembira.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/549gQwcJ4N8",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-105",
+    "title": "PG 6101 - Tilawah Ayat Suci Alquran",
+    "category": "Non-Performance",
+    "description": "Pembacaan ayat-ayat suci Alquran yang menjadi pembuka bernuansa religius dan penuh kekhidmatan dalam malam puncak.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/YfAb-vXXVkg",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-106",
+    "title": "PG 6101 - Sambutan Ketua Panggung Gembira",
+    "category": "Non-Performance",
+    "description": "Sambutan Ketua Panggung Gembira yang menyampaikan pesan, apresiasi, dan pengantar bagi seluruh rangkaian pertunjukan.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/BCVehz1vyz8",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-107",
+    "title": "PG 6101 - Sambutan Pimpinan",
+    "category": "Non-Performance",
+    "description": "Sambutan pimpinan yang memberikan arahan, pesan, dan apresiasi dalam rangkaian malam puncak Panggung Gembira.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/Uqm6iSORqYM",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-108",
+    "title": "PG 6101 - Catalyst Band Bersama",
+    "category": "Seni Musik",
+    "description": "Penampilan bersama Catalyst Band yang memadukan energi musik dan kekompakan para penampil di atas panggung.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/0eVu9UXvtK8",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-109",
+    "title": "PG 6101 - Choir-L-Islami : Mars Darussalam",
+    "category": "Seni Musik",
+    "description": "Penampilan Choir-L-Islami membawakan Mars Darussalam dengan harmonisasi vokal yang menggambarkan semangat dan identitas Darussalam.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/ph-kFpoB20I",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-110",
+    "title": "PG 6101 - Choir-L-Islami : Terimaksih Ku",
+    "category": "Seni Musik",
+    "description": "Choir-L-Islami membawakan lagu Terimakasih Ku dengan harmonisasi vokal yang menyampaikan nuansa syukur dan penghargaan.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/IwctpwaVEMY",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-111",
+    "title": "PG 6101 - Choir-L-Islami : Tribute Oh Pondokku",
+    "category": "Seni Musik",
+    "description": "Penampilan tribute Choir-L-Islami untuk Oh Pondokku yang menghadirkan nuansa nostalgia, kecintaan, dan penghormatan kepada pondok.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/Wy-Hbo6HX1U",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-112",
+    "title": "PG 6101 - Choir-L-Islami : Crayon Shincan",
+    "category": "Seni Musik",
+    "description": "Penampilan Choir-L-Islami dengan lagu Crayon Shinchan yang dikemas secara kreatif dan menghibur melalui harmonisasi vokal.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/woGUsM58t2k",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-113",
+    "title": "PG 6101 - Visual Siaran Peringatan",
+    "category": "Non-Performance",
+    "description": "Visual siaran peringatan yang digunakan untuk menyampaikan informasi penting kepada penonton selama berlangsungnya acara.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/Lp0nYhoshCA",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-114",
+    "title": "PG 6101 - Voices Of Conference",
+    "category": "Seni Bahasa",
+    "description": "Pertunjukan berbasis suara dan bahasa yang menghadirkan konsep conference dengan permainan dialog, komunikasi, dan ekspresi vokal.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/ihFcyY1rynM",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-115",
+    "title": "PG 6101 - Penyerbuan Durjanoor",
+    "category": "Seni Teater",
+    "description": "Adegan teatrikal Penyerbuan Durjanoor yang menghadirkan konflik, aksi, dan ketegangan melalui perpaduan akting serta tata panggung.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/CfBpLpC-FEA",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-116",
+    "title": "PG 6101 - Visual Siaran pemberitahuan",
+    "category": "Non-Performance",
+    "description": "Visual siaran pemberitahuan yang berfungsi menyampaikan informasi dan pengumuman kepada penonton selama acara berlangsung.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/lci93iCihU4",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-117",
+    "title": "PG 6101 - Drama : Kala Jaya Hidup",
+    "category": "Seni Teater",
+    "description": "Drama Kala Jaya Hidup yang mengangkat kisah penuh konflik dan perjuangan melalui akting, dialog, serta penghayatan para pemeran.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/QdZDACSDSeE",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-118",
+    "title": "PG 6101 - NasyiDA : Secercah Cahaya",
+    "category": "Seni Musik",
+    "description": "Penampilan NasyiDA membawakan Secercah Cahaya dengan nuansa musikal religi yang menyampaikan pesan tentang harapan dan optimisme.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/msYeKjfqZvs",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-119",
+    "title": "PG 6101 - Drama : Istana Candradimuka",
+    "category": "Seni Teater",
+    "description": "Drama Istana Candradimuka yang menghadirkan kisah penuh karakter, konflik, dan dinamika melalui pertunjukan teater.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/iFzpD9HQkUs",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-120",
+    "title": "PG 6101 Wayang : Parkesit Jumeneng Nata 1",
+    "category": "Seni Teater",
+    "description": "Bagian pertama pertunjukan wayang Parkesit Jumeneng Nata yang mengangkat kisah pewayangan dengan karakter, dialog, dan alur cerita khas.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/LzrT6GmVb0s",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-121",
+    "title": "PG 6101 - Wiroyudho",
+    "category": "Seni Tari",
+    "description": "Pertunjukan tari Wiroyudho yang menampilkan gerakan penuh tenaga, ketegasan, dan semangat keprajuritan.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/J_qvP-1MRL0",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-122",
+    "title": "PG 6101 - Cakra Ramayana",
+    "category": "Seni Tari",
+    "description": "Pertunjukan tari bertema Ramayana yang memadukan gerak tari, ekspresi, dan unsur cerita epik dalam sebuah koreografi panggung.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/n8hQSfGL7_k",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-123",
+    "title": "PG 6101 - Wayang : Parkesit Jumeneng Nata 2",
+    "category": "Seni Teater",
+    "description": "Bagian kedua pertunjukan wayang Parkesit Jumeneng Nata yang melanjutkan alur kisah dan konflik menuju perkembangan cerita berikutnya.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/ULTTyJ2zot8",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-124",
+    "title": "PG 6101 - Seuramoe Mekkah",
+    "category": "Seni Tari",
+    "description": "Pertunjukan tari Seuramoe Mekkah yang menghadirkan nuansa budaya Aceh melalui gerakan, formasi, dan ekspresi para penari.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/n4p9DrGoGRI",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-125",
+    "title": "PG 6101 - Bujangan Andalas",
+    "category": "Seni Tari",
+    "description": "Pertunjukan tari Bujangan Andalas yang menampilkan karakter dan semangat budaya Sumatera melalui gerakan tari yang energik.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/ZyHSg1rN7f4",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-126",
+    "title": "PG 6101 - Antaro Silek Jo Piriang",
+    "category": "Seni Tari",
+    "description": "Pertunjukan Antaro Silek Jo Piriang yang memadukan unsur gerak silek dan atraksi piring dalam sajian seni tradisional Minangkabau.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/jPDYfwUFeew",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-127",
+    "title": "PG 6101 - Reog Obyog",
+    "category": "Seni Tari",
+    "description": "Pertunjukan Reog Obyog yang menghadirkan kekuatan karakter Reog melalui gerakan atraktif, musik tradisional, dan energi panggung yang meriah.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/BxN2NUwaoaM",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-128",
+    "title": "PG 6101 - BASARA : Barudak Sunda Darussalam",
+    "category": "Seni Tari",
+    "description": "Penampilan BASARA atau Barudak Sunda Darussalam yang mengangkat kekayaan budaya Sunda melalui perpaduan tari, musik, dan ekspresi tradisional.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/RuFNgSq3Y34",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-129",
+    "title": "PG 6101 - Cokro Manggilingan : Goyang Gayeng",
+    "category": "Seni Musik",
+    "description": "Penampilan Cokro Manggilingan dengan Goyang Gayeng yang menghadirkan suasana ceria, enerjik, dan menghibur melalui sajian musik.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/_S4PLpqUcJk",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-130",
+    "title": "PG 6101 - Wayang : Parikesit Jumeneng Nata 3",
+    "category": "Seni Teater",
+    "description": "Bagian ketiga pertunjukan wayang Parikesit Jumeneng Nata yang melanjutkan perjalanan cerita menuju bagian penting dalam kisah pewayangan.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/LKvzQiecdNc",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-131",
+    "title": "PG 6101 - Puisi : Sinergi Dalam Ketidakpastian",
+    "category": "Seni Teater",
+    "description": "Pertunjukan puisi Sinergi Dalam Ketidakpastian yang menyampaikan refleksi dan pesan tentang kehidupan melalui permainan kata, ekspresi, dan penjiwaan.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/baPI8094eJg",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-132",
+    "title": "PG 6101 - Catalyst Band : Kami Belum Tentu",
+    "category": "Seni Musik",
+    "description": "Catalyst Band membawakan Kami Belum Tentu dengan karakter musik yang enerjik dan penampilan panggung yang komunikatif.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/m5vAulZioAM",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-133",
+    "title": "PG 6101 - Drama Musikal : The Impervious Barbarossa",
+    "category": "Seni Bahasa",
+    "description": "Drama musikal The Impervious Barbarossa yang menggabungkan akting, dialog, musik, dan elemen pertunjukan untuk menghadirkan kisah yang dramatis.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/uk5hsD9Y3NQ",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-134",
+    "title": "PG 6101 - Drama : Kala Jaya Kembali",
+    "category": "Seni Teater",
+    "description": "Kelanjutan drama Kala Jaya Kembali yang menghadirkan perkembangan cerita, konflik, dan perjalanan karakter melalui pertunjukan teater.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/vHsdCd5E2SU",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-135",
+    "title": "PG 6101 - Ini Loh Show 1",
+    "category": "Seni Teater",
+    "description": "Ini Loh Show bagian pertama yang menghadirkan pertunjukan teatrikal dengan konsep hiburan, kejutan, dan interaksi panggung.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/IclzpdWlrUY",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-136",
+    "title": "PG 6101 - Kethok Magic Loh Ya",
+    "category": "Seni Teater",
+    "description": "Pertunjukan Kethok Magic Loh Ya yang menggabungkan unsur teatrikal, komedi, dan aksi sulap untuk menghadirkan hiburan yang penuh kejutan.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/-fLDc7pfaz8",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-137",
+    "title": "PG 6101 - Ini Loh Show 2",
+    "category": "Seni Teater",
+    "description": "Ini Loh Show bagian kedua yang melanjutkan sajian hiburan teatrikal dengan berbagai aksi, karakter, dan kejutan di atas panggung.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/8vnHX9cpvEg",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-138",
+    "title": "PG 6101 - Visual Iklan Gontor Pay",
+    "category": "Seni Visual",
+    "description": "Visual iklan Gontor Pay yang dikemas secara kreatif sebagai bagian dari materi audiovisual dalam rangkaian Panggung Gembira.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/ZPCfkvIVUig",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-139",
+    "title": "PG 6101 - Balle Dhamaka",
+    "category": "Seni Tari",
+    "description": "Pertunjukan Balle Dhamaka yang menghadirkan koreografi penuh energi, gerakan dinamis, dan suasana meriah di atas panggung.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/uM5hVjM_ics",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-140",
+    "title": "PG 6101 - Iconic Thailand",
+    "category": "Seni Tari",
+    "description": "Pertunjukan Iconic Thailand yang mengangkat nuansa budaya Thailand melalui gerakan tari, kostum, dan visual panggung yang khas.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/U62ye4g3Uk0",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-141",
+    "title": "PG 6101 - Zon Zero",
+    "category": "Seni Tari",
+    "description": "Pertunjukan tari Zon Zero dengan konsep modern, gerakan energik, dan koreografi dinamis yang memberikan warna berbeda di atas panggung.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/DMCWaXNYsvU",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-142",
+    "title": "PG 6101 - Sobagaya",
+    "category": "Seni Tari",
+    "description": "Pertunjukan Sobagaya yang menampilkan keindahan gerak tari dengan sentuhan budaya dan kekompakan para penampil.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/4WaRqSh3ltA",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-143",
+    "title": "PG 6101 - Video",
+    "category": "Seni Visual",
+    "description": "Sajian video visual yang menjadi bagian dari rangkaian multimedia Panggung Gembira dengan perpaduan gambar, grafis, dan konsep audiovisual.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/flST_dBA15w",
+    "videoType": "youtube"
+  },
+  {
+    "id": "pg-144",
+    "title": "PG6101 - Grand Closing",
+    "category": "Seni Musik",
+    "description": "Penampilan Grand Closing yang menjadi puncak sekaligus penutup rangkaian Panggung Gembira dengan suasana meriah dan penuh energi.",
+    "featured": true,
+    "videoUrl": "https://youtu.be/zKduJAt9jcU",
+    "videoType": "youtube"
+  }
 ]
