@@ -23,7 +23,8 @@
     "plyr-react": "^6.0.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
-    "googleapis": "^121.0.0"
+    "googleapis": "^121.0.0",
+    "firebase": "^11.0.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.7.0",

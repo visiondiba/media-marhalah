@@ -10,6 +10,7 @@ import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import { useEffect, useState } from "react";
 import plyrStyles from "plyr/dist/plyr.css?url";
 import "./tailwind.css";
+import { ComplaintForm } from "./components/ComplaintForm";
 
 export const links: LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -30,13 +31,13 @@ export const meta: MetaFunction = () => [
     content:
       "Platform streaming eksklusif resmi untuk Panggung Gembira Impervious Generation. Tonton siaran langsung dan arsip video penampilan panggung terbaik di sini.",
   },
-  {icon: "/favicon.ico"}
+  { icon: "/favicon.ico" }
 ];
 
 function GlobalLoading() {
   const navigation = useNavigation();
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  
+
   const isNavigating = navigation.state === "loading";
   const isLoading = isInitialLoad || isNavigating;
 
@@ -48,12 +49,12 @@ function GlobalLoading() {
   }, []);
 
   return (
-    <div 
-      className={`fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#070503] transition-all duration-500 ease-out select-none ${
-        isLoading ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
-      }`}
+    <div
+      className={`fixed inset-0 z-[99999] flex flex-col items-center justify-center bg-[#070503] transition-all duration-500 ease-out select-none ${isLoading ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
+        }`}
     >
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes progress-slide {
           0% { transform: translateX(-100%); }
           100% { transform: translateX(250%); }
@@ -66,19 +67,19 @@ function GlobalLoading() {
 
       <div className="relative flex flex-col items-center">
         {/* Minimalist Runner */}
-        <img 
-          src="/lari.png" 
-          alt="Loading" 
+        <img
+          src="/lari.png"
+          alt="Loading"
           className="h-10 w-auto object-contain"
           style={{ animation: 'runner-bob 0.5s infinite ease-in-out' }}
         />
 
         {/* Minimalist Thin Progress Bar */}
         <div className="relative mt-5 h-[1.5px] w-20 overflow-hidden bg-zinc-800">
-          <div 
+          <div
             className="h-full w-8 bg-primary"
-            style={{ 
-              animation: 'progress-slide 1s infinite cubic-bezier(0.4, 0, 0.2, 1)' 
+            style={{
+              animation: 'progress-slide 1s infinite cubic-bezier(0.4, 0, 0.2, 1)'
             }}
           />
         </div>
@@ -107,5 +108,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <Outlet />
+      <ComplaintForm />
+    </>
+  );
 }
